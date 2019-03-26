@@ -1,6 +1,7 @@
 <template>
   <div id="listbar">
    <span><h1>用户列表</h1><hr style="height:2px;border:none;border-top:2px solid rgb(68, 67, 64);margin-top:2%;"/></span>
+   
    <users></users>
   </div>
 </template>

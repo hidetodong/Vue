@@ -27,9 +27,7 @@ export default {
           {username:'肖睿7'},
           {username:'肖睿8'},
           {username:'肖睿9'},
-          {username:'肖睿10'},
-          {username:'肖睿11'},
-          {username:'肖睿12'}
+          {username:'肖睿10'}
         ]
     }
   }

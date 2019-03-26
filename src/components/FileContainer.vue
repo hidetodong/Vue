@@ -6,12 +6,14 @@
       <th>类型</th>
       <th>操作</th>
       <th>时间</th>
+      <th>序号</th>
      </tr>
       <tr v-for="x in files">
         <td>{{x.message}}</td>
         <td>{{x.name}}</td>
         <td>{{x.Button}}</td>
         <td>{{x.time}}</td>
+        <td>{{x.index}}</td>
       </tr>
     </table>
   </div>
