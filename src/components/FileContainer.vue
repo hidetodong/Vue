@@ -8,12 +8,12 @@
       <th>时间</th>
       <th>序号</th>
      </tr>
-      <tr v-for="x in files">
-        <td>{{x.message}}</td>
-        <td>{{x.name}}</td>
-        <td>{{x.Button}}</td>
-        <td>{{x.time}}</td>
-        <td>{{x.index}}</td>
+     <tr v-for="file in files" v-bind:key="file">
+        <td>{{file.message}}</td>
+        <td>{{file.name}}</td>
+        <td>{{file.Button}}</td>
+        <td>{{file.time}}</td>
+        <td>{{file.index}}</td>
       </tr>
     </table>
   </div>
@@ -26,26 +26,49 @@ export default {
   data () {
     return {
       files:[
-        {'message':'吴帅均傻逼','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
-        {'message':'吴帅均傻逼','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
-        {'message':'吴帅均傻逼','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
-        {'message':'吴帅均傻逼','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
-        {'message':'吴帅均傻逼','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
-        {'message':'吴帅均傻逼','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
-        {'message':'吴帅均傻逼','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
-        {'message':'吴帅均傻逼','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
-        {'message':'吴帅均傻逼','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
-        {'message':'吴帅均傻逼','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
-        {'message':'吴帅均傻逼','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
-        {'message':'吴帅均傻逼','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
-        {'message':'吴帅均傻逼','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
-        {'message':'吴帅均傻逼','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
-        {'message':'吴帅均傻逼','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
-        {'message':'吴帅均傻逼','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
-        {'message':'吴帅均傻逼','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
-        {'message':'吴帅均傻逼','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
-        {'message':'吴帅均傻逼','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
-        {'message':'吴帅均傻逼','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'}
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},     
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},     
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},     
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},     
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},     
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},     
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},     
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},     
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},     
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},     
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},     
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},     
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},     
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},     
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},     
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},     
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},     
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},     
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},     
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},     
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},     
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},     
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},     
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},     
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},     
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},     
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},     
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},     
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},     
+        {'message':'XXX','name':'doc','Button':'Start','time':'2019年3月21日23:56:23'},     
 
       ]
     }
@@ -55,15 +78,15 @@ export default {
 
 <style scoped>
   #filecontainer{
-    margin-top: 20px;
+    margin-top: 0.5%;
     margin-left: 20px;
     width: 95%;
-    border: 1px solid rgb(21, 48, 238);
-    height: 95%;
+    /* border: 1px solid rgb(21, 248, 238); */
+    height: 98%;
     overflow-y: scroll;
   }
   #filecontainer table{
-    margin-top: 3%;
+    margin-top: 1%;
     margin-left: 3%;
 
   }

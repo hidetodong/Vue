@@ -24,7 +24,7 @@ export default {
 #msgbox span h1{
   font-size: 20px;
   padding-left: 4%;
-  margin: 0.5% auto 0.5% auto;
+  margin: 0.5% auto 0 auto;
   padding-top: 0.5%;
   padding-bottom: 0.5%;
   width: 95%;

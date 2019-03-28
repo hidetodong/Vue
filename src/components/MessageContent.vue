@@ -5,7 +5,6 @@
         <div class="msgcon-header-inner">
           <input type="button" name="uploadfile" value="上传文件">
           <input type="button" name="downloadfile" value="下载文件">
-          <input type="button" name="donate" value="捐助邢滋东">
         </div>
       </div>
       <div class="msgcon-body">
@@ -16,7 +15,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'msgcon',
   data () {
@@ -30,7 +28,7 @@ export default {
 <style scoped>
   #msgcon{
     width: 100%;
-    height: 92%;
+    height: 96%;
     /* border: 1px solid rgb(21, 244, 96); */
   }
   #msgcon h1{
@@ -39,7 +37,7 @@ export default {
   .msgcon-inner{
     margin: 0.3% auto 0.3% auto;
     width: 99%;
-    height: 98%;
+    height: 100%;
     align-self: center;
     border-radius: 10px;
     border: 1px solid;
@@ -63,6 +61,6 @@ export default {
     width: 98%;
     height: 90%;
     margin: 0.5% auto 0% auto;
-    border: 1px solid;
+    /* border: 1px solid; */
   }
 </style>

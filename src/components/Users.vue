@@ -2,8 +2,8 @@
   <div id="users">
     <div class="users-inner"  v-for="x in users">
       <h1>
-        <span>{{x.username}}</span>  |  <input value="发送消息" type="button">
-        <input value="传送文件" type="button">
+        <div class="p-name">{{x.username}}</div> | <div class="p-button">发送消息</div>
+        <div class="p-button"> 传送文件</div>
       </h1>
     </div>
   </div>
@@ -17,17 +17,23 @@ export default {
     return {
         users:[
           {username:'吴帅均傻逼'},
-          {username:'邢滋东'},
-          {username:'肖睿1'},
-          {username:'肖睿2'},
-          {username:'肖睿3'},
-          {username:'肖睿4'},
-          {username:'肖睿5'},
-          {username:'肖睿6'},
-          {username:'肖睿7'},
-          {username:'肖睿8'},
-          {username:'肖睿9'},
-          {username:'肖睿10'}
+          {username:'吴帅均傻逼'},
+          {username:'吴帅均傻逼'},
+          {username:'吴帅均傻逼'},
+          {username:'吴帅均傻逼'},
+          {username:'吴帅均傻逼'},
+          {username:'吴帅均傻逼'},
+          {username:'吴帅均傻逼'},
+          {username:'吴帅均傻逼'},
+          {username:'吴帅均傻逼'},
+          {username:'吴帅均傻逼'},
+          {username:'吴帅均傻逼'},
+          {username:'吴帅均傻逼'},
+          {username:'吴帅均傻逼'},
+          {username:'吴帅均傻逼'},
+          {username:'吴帅均傻逼'},
+          {username:'吴帅均傻逼'},
+          {username:'吴帅均傻逼'}
         ]
     }
   }
@@ -36,25 +42,49 @@ export default {
 
 <style scoped>
   #users{
-    height: 100%;
-    width: 90%;
-    vertical-align: middle;
+    height: 93%;
+    width: 100%;
+    overflow-y:scroll;
+    overflow-x:hidden;
+    vertical-align: center;
   }
-  #users p{
+  /* #users p{
     width: 100%;
     height: 100px;
     vertical-align: middle;
     border: 2px solid rgb(96, 129, 249);
-  }
+  } */
   #users h1{
     font-size: 14px;
-    width: 100%;
+    width: 94%;
     padding-left: 5%;
     display: inline-block;
     border: 1px solid;
     border-radius: 12px;
     height: 40px;
     line-height: 40px;
+    vertical-align: center;
+  }
+  .p-name{
+    display: inline-block;
+    width: 35%;
+    /* overflow: hidden;   */
+    height: 100%;
+    /* border: 1px solid; */
+    text-align: center;
+    }
+
+  .p-button{
+    display: inline-block;
+    width: 25%;
+    border: 1px solid;
+    border-radius: 10px;
+    text-align: center;
+    
+  }
+  .p-button:hover{
+    background-color: rgb(58, 56, 56);
+    /* 此处要增加文字不可选中 */
   }
   #users h1 span:hover{
     color: blue;
@@ -66,14 +96,22 @@ export default {
      border-radius: 10px;
      height: 70%;
      border: 1px solid rgb(161, 126, 199);
-     background-color: rgb(213, 176, 215, 0.08);
+     background-color:#FFFFFF;
   }
   #users h1 input:active{
      width: 25%;
      border-radius: 10px;
      border: 1px solid rgb(161, 126, 199);
-     background-color: rgba(107, 107, 107, 0.81);
+     background-color: blueviolet;
   }
+  #users h1 input:hover{
+     
+     width: 25%;
+     border-radius: 10px;
+     border: 1px solid rgb(161, 126, 199);
+     background-color:rgb(87, 87, 87);
+  }
+
   .users-inner{
     margin-top: 3%;
     display: inline-block;
