@@ -61,6 +61,6 @@ export default {
     width: 98%;
     height: 90%;
     margin: 0.5% auto 0% auto;
-    /* border: 1px solid; */
+    /* border: 1px solid;  */
   }
 </style>
