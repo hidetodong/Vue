@@ -16,8 +16,8 @@
               <div class="login-input-confirm" v-on:click="loginConfirm()">
                 <span>登 录</span>
               </div>
-              <div class="login-input-cancel">
-                <span>取 消</span>
+              <div class="login-input-register">
+                <span>注 册</span>
               </div>
             </div>
             <div class="login-bottom">
@@ -26,7 +26,7 @@
         </div>
         
       </div>
-    </div>
+    </div> 
       
   </div>
 </template>
@@ -176,7 +176,7 @@ export default {
     
   }
   /* 取消按钮部分 */
-  .login-input-cancel{
+  .login-input-register{
     border:1px solid;
     border-radius: 10px;
     height: 8%;
@@ -188,7 +188,7 @@ export default {
     text-align: center;
     box-shadow:0 0 3px #000;
   }
-  .login-input-cancel:hover{
+  .login-input-register:hover{
     border:1px solid;
     border-radius: 10px;
     height: 8%;
@@ -203,7 +203,7 @@ export default {
   .login-button-bar{
     margin-top: 5%;
   }
-  .login-input-cancel span{
+  .login-input-register span{
     display: inline-block;
     padding-top:0%;
     margin-top: 15%;

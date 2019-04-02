@@ -2,7 +2,7 @@
   <div id="users">
     <div class="users-inner"  v-for="x in users">
       <h1>
-        <div class="p-name">{{x.username}}</div> | <div class="p-button">发送消息</div>
+        <div class="p-name">{{x.username}}</div><div class="p-button">发送消息</div>
         <div class="p-button"> 传送文件</div>
       </h1>
     </div>
@@ -16,24 +16,28 @@ export default {
   data () {
     return {
         users:[
-          {username:'吴帅均傻逼'},
-          {username:'吴帅均傻逼'},
-          {username:'吴帅均傻逼'},
-          {username:'吴帅均傻逼'},
-          {username:'吴帅均傻逼'},
-          {username:'吴帅均傻逼'},
-          {username:'吴帅均傻逼'},
-          {username:'吴帅均傻逼'},
-          {username:'吴帅均傻逼'},
-          {username:'吴帅均傻逼'},
-          {username:'吴帅均傻逼'},
-          {username:'吴帅均傻逼'},
-          {username:'吴帅均傻逼'},
-          {username:'吴帅均傻逼'},
-          {username:'吴帅均傻逼'},
-          {username:'吴帅均傻逼'},
-          {username:'吴帅均傻逼'},
-          {username:'吴帅均傻逼'}
+          {username:'吴帅均'},
+          {username:'吴帅均'},
+          {username:'吴帅均'},
+          {username:'吴帅均'},
+          {username:'吴帅均'},
+          {username:'吴帅均'},
+          {username:'吴帅均'},
+          {username:'吴帅均'},
+          {username:'吴帅均'},
+          {username:'吴帅均'},
+          {username:'吴帅均'},
+          {username:'吴帅均'},
+          {username:'吴帅均'},
+          {username:'吴帅均'},
+          {username:'吴帅均'},
+          {username:'吴帅均'},
+          {username:'吴帅均'},
+          {username:'吴帅均'},
+          {username:'吴帅均'},
+          {username:'吴帅均'},
+          {username:'吴帅均'},
+          {username:'吴帅均'}
         ]
     }
   }
@@ -46,7 +50,6 @@ export default {
     width: 100%;
     overflow-y:scroll;
     overflow-x:hidden;
-    vertical-align: center;
   }
   /* #users p{
     width: 100%;
@@ -58,32 +61,37 @@ export default {
     font-size: 14px;
     width: 94%;
     padding-left: 5%;
-    display: inline-block;
+    text-align: center;
     border: 1px solid;
     border-radius: 12px;
     height: 40px;
-    line-height: 40px;
-    vertical-align: center;
+    line-height: 40px; 
+    /* vertical-align: bottom; */
   }
   .p-name{
     display: inline-block;
     width: 35%;
-    /* overflow: hidden;   */
+    overflow: hidden;  
     height: 100%;
     /* border: 1px solid; */
     text-align: center;
+    vertical-align: bottom;
     }
 
   .p-button{
+    padding-top: 5%;
     display: inline-block;
+    /* vertical-align: bottom; */
     width: 25%;
     border: 1px solid;
     border-radius: 10px;
-    text-align: center;
-    
+    height: 50%;
+    line-height: 50%;
+    padding-left: 2%;
+    padding-right: 2%;
   }
   .p-button:hover{
-    background-color: rgb(58, 56, 56);
+    background-color: #c0c0c0;
     /* 此处要增加文字不可选中 */
   }
   #users h1 span:hover{
