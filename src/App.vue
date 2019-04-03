@@ -23,13 +23,17 @@ export default {
     }
   },
   methods:{
+    // created () {
+    //   this.initWebsocket;
+    // },
     //页面点击逻辑 
-    turned(isLogin){
+    turned (isLogin) {
       this.isLogin = isLogin;
+      this.initWebsocket();
     },
     //WebSocket连接控制
     initWebsocket () {
-      const wsurl = "ws://127.0.0.1:8085";//这个地址由后端童鞋提供
+      const wsurl = "ws://127.0.0.1:8085";//这个地址由后端提供
       this.websock = new WebSocket(wsurl);
       this.websock.onmessage = this.websocketonmessage;
       this.websock.onopen = this.websocketonopen;
@@ -60,7 +64,7 @@ export default {
         }
     },
     websocketonopen () {
-
+      console.log('连接成功');
     },
     websocketonerror () {
 
