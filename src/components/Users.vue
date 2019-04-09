@@ -2,7 +2,7 @@
   <div id="users">
     <div class="users-inner"  v-for="x in users">
       <h1>
-        <div class="p-name">{{x.username}}</div><div class="p-button">发送消息</div>
+        <div class="p-name">{{x.name}}</div><div class="p-button">发送消息</div>
         <div class="p-button"> 传送文件</div>
       </h1>
     </div>
@@ -15,30 +15,7 @@ export default {
   name: 'users',
   data () {
     return {
-        users:[
-          {username:'吴帅均'},
-          {username:'吴帅均'},
-          {username:'吴帅均'},
-          {username:'吴帅均'},
-          {username:'吴帅均'},
-          {username:'吴帅均'},
-          {username:'吴帅均'},
-          {username:'吴帅均'},
-          {username:'吴帅均'},
-          {username:'吴帅均'},
-          {username:'吴帅均'},
-          {username:'吴帅均'},
-          {username:'吴帅均'},
-          {username:'吴帅均'},
-          {username:'吴帅均'},
-          {username:'吴帅均'},
-          {username:'吴帅均'},
-          {username:'吴帅均'},
-          {username:'吴帅均'},
-          {username:'吴帅均'},
-          {username:'吴帅均'},
-          {username:'吴帅均'}
-        ]
+        users:this.$store.state.user
     }
   }
 }

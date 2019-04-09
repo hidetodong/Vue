@@ -9,9 +9,14 @@ export default {
   name: 'msgbox',
   data () {
     return {
-      message:'上线成功！'
+
     }
-  }
+  },
+  computed: {
+            message () {
+                return this.$store.state.systemMsg
+            }
+        }
 }
 </script>
 

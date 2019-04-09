@@ -14,7 +14,7 @@
 
 <script>
 // import {WebTool,newss} from './js/connect-util.js'
-
+import store from './vuex/store.js';
 export default {
   name: 'App',
   data () {
@@ -22,6 +22,8 @@ export default {
       isLogin:false
     }
   },
+  //引入全局变量store
+  store,
   methods:{
     // created () {
     //   this.initWebsocket;
@@ -51,8 +53,8 @@ export default {
             sender = msg.from + ': ';
             break;
           case 'handshake':
-                var user_info = {'type': 'login', 'content': uname};
-                sendMsg(user_info);
+                var user_info = {'type': 'login', 'content': 'sss'};
+                // sendMsg(user_info);
                 return;
             case 'login':
             case 'logout':
@@ -65,6 +67,12 @@ export default {
     },
     websocketonopen () {
       console.log('连接成功');
+      // var sysStr='连接成功！'+this.$store.state.localUser.name+'已上线';
+      this.$store.state.systemMsg='连接成功！'+this.$store.state.localUser.name+'已上线';
+      // setTimeout(1000);
+      // this.sysMsgRefresh(sysStr);
+      console.log(this.$store.state.systemMsg);
+
     },
     websocketonerror () {
 
@@ -76,11 +84,17 @@ export default {
 
 
     //页面其他逻辑 暂缺
-    sendMsg () {
+    sendMsg (userinfo) {
 
     },
-    dealUser() {
+    dealUser () {
       
+    },
+    listMsg () {
+      
+    },
+    sysMsgRefresh(str){
+      this.$store.commit("sysMsgRefresh",str);
     }
   }
   

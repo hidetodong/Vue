@@ -13,6 +13,7 @@ import FileContainer from './components/FileContainer'
 import LoginBar from './components/LoginBar'
 import MessageBody from './components/MessageBody'
 import TalkingBox from './components/TalkingBox'
+// import Global from './components/Global'
 Vue.config.productionTip = false
 
 // 全局注册
