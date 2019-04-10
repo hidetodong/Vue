@@ -17,7 +17,7 @@ export default {
   name: 'msgbody',
   data () {
     return {
-      isTalk:true
+      isTalk:false
     }
   },
   methods:{

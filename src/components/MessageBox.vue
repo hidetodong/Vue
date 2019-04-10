@@ -14,7 +14,7 @@ export default {
   },
   computed: {
             message () {
-                return this.$store.state.systemMsg
+                return this.$store.state.systemMsg.message
             }
         }
 }

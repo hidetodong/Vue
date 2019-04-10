@@ -2,11 +2,11 @@
   <div id="app">
     <!-- <input type="button" value="切换" v-on:click="turned()"> -->
     <titlebar></titlebar>
-    <div class='bodycontainer' v-if="isLogin">
+    <div class='bodycontainer' v-if="isLogin == true">
      <bodybar></bodybar>
     </div>
     <div class='bodycontainer' v-else>
-      <loginbar v-on:ConfirmLogin="turned($event)"></loginbar>
+      <loginbar></loginbar>
       
     </div>
   </div>
@@ -19,9 +19,15 @@ export default {
   name: 'App',
   data () {
     return {
-      isLogin:false
+      
     }
   },
+  computed: {
+            isLogin () {
+                return this.$store.state.pageState.isLogin
+            }
+
+        },
   //引入全局变量store
   store,
   methods:{
@@ -29,8 +35,7 @@ export default {
     //   this.initWebsocket;
     // },
     //页面点击逻辑 
-    turned (isLogin) {
-      this.isLogin = isLogin;
+    created () {
       this.initWebsocket();
     },
     //WebSocket连接控制
@@ -41,6 +46,7 @@ export default {
       this.websock.onopen = this.websocketonopen;
       this.websock.onerror = this.websocketonerror;
       this.websock.onclose = this.websocketclose;
+      console.log('连接成功！')
     },
     websocketonmessage (e) {
         var msg = JSON.parse(e.data);
@@ -66,12 +72,16 @@ export default {
         }
     },
     websocketonopen () {
-      console.log('连接成功');
-      // var sysStr='连接成功！'+this.$store.state.localUser.name+'已上线';
-      this.$store.state.systemMsg='连接成功！'+this.$store.state.localUser.name+'已上线';
+      // console.log('连接成功');
+      // console.log(this.$store.state.localUser.name);
+      var sysStr='连接成功！'+this.$store.state.localUser.name+'已上线';
+      // this.$store.state.systemMsg='连接成功！'+this.$store.state.localUser.name+'已上线';
       // setTimeout(1000);
-      // this.sysMsgRefresh(sysStr);
-      console.log(this.$store.state.systemMsg);
+      // console.log(sysStr);
+      this.sysMsgRefresh(sysStr);
+      // var str=this.$store.state.systemMsg.message;
+      // console.log(this.$store.state.systemMsg);
+      // console.log(str)
 
     },
     websocketonerror () {
@@ -94,6 +104,7 @@ export default {
       
     },
     sysMsgRefresh(str){
+      console.log(str);
       this.$store.commit("sysMsgRefresh",str);
     }
   }

@@ -3,31 +3,38 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 var state = {
+  pageState: {
+    'isLogin': false,
+    'isTalk': false
+  },
+  localUser: {
+    'name': ''
+  },
+  user: [
+    {'name': '老王'}
+  ],
+  msglist: [
 
-    localUser: {
-        "name": "老周",
-        "isSame": "same"
-    },
-    user:[
-        {"name":"老王","isSame":"same"},
-        {"name":"老周","isSame":"same"}
-    ],
-    msglist: [
-
-    ],
-    systemMsg:'123'
+  ],
+  systemMsg: {'message': '123123'}
 }
-//存放修改变量的方法
+// 存放修改变量的方法
 var mutations = {
-    addUser (Userinfo) {
+  addUser (state, Userinfo) {
 
-    },
-    addMsg (textMsg) {
+  },
+  addMsg (state, textMsg) {
 
-    },
-    sysMsgRefresh (sysStr) {
-      this.state.systemMsg=sysStr;
-    }
+  },
+  sysMsgRefresh (state, sysStr) {
+    state.systemMsg.message = sysStr
+  },
+  updateUserInfo (state, userinfo) {
+    state.localUser.name = userinfo.name
+  },
+  confirmLogin (state) {
+    state.pageState.isLogin = true;
+  }
 }
 
 const store = new Vuex.Store({
@@ -35,4 +42,4 @@ const store = new Vuex.Store({
   mutations
 })
 
-export default store;
+export default store

@@ -7,13 +7,13 @@
         </div>
         <div class='login-text'>
           <div class='login-input-user'>
-              <span>用户名 <input type="text" value='sss' id='username-text'></span>
+              <span>用户名 <input type="text" value='sss' id='username-text' placeholder="请输入用户名"></span>
           </div>
           <div class="login-input-pass">
-              <span>密  码 <input type="password" id='user-password'></span>
+              <span>密  码 <input type="password" id='user-password' placeholder="请输入密码"></span>
           </div>
             <div class="login-button-bar">
-              <div class="login-input-confirm" v-on:click="loginConfirm()">
+              <div class="login-input-confirm" v-on:click="updateUserInfo()">
                 <span>登 录</span>
               </div>
               <div class="login-input-register">
@@ -21,7 +21,7 @@
               </div>
             </div>
             <div class="login-bottom">
-              <span><a href="">联系我们{{name}}</a> / <a href="">忘记密码</a></span>
+              <span><a href="">联系我们</a> / <a href="">忘记密码</a></span>
             </div>
         </div>
         
@@ -38,23 +38,40 @@ export default {
   props:[],
   data () {
     return {
-      isLogin:false,
-      name:'Mazii'
+      isLogin:false
     }
   },
   methods:{
-    loginConfirm:function(){
-      var uname = document.getElementById('username-text').value;
-      var upass = document.getElementById('user-password').value;
-      // console.log('用户名为'+str.value);
-      if(uname=='sss'){
-         this.$emit('ConfirmLogin',true);
+    // loginConfirm:function(){
+    //   var uname = document.getElementById('username-text').value;
+    //   var upass = document.getElementById('user-password').value;
+    //   // console.log('用户名为'+str.value);
+    //   if(uname=='sss'){
+    //      this.$emit('ConfirmLogin',true);
          
-      }
-      else{
-         this.$emit('ConfirmLogin',false);
+    //   }
+    //   else{
+    //      this.$emit('ConfirmLogin',false);
 
+    //   }
+    // },
+    updateUserInfo () {
+      //新选项之后补充
+      //验证用户名合理性
+      this.loginVerify();
+      //取得数据
+      var userinfo = {
+        'name':document.getElementById('username-text').value
       }
+      //vue更新数据
+      this.$store.commit("updateUserInfo",userinfo);
+      var sysMsg=userinfo.name + '已上线!';
+      this.$store.commit("sysMsgRefresh",sysMsg);
+      //发送Websocket包给PHP后台
+      
+    },
+    loginVerify () {
+      this.$store.commit("confirmLogin")
     }
   }
 }
