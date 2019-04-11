@@ -7,7 +7,7 @@
         </div>
         <div class='login-text'>
           <div class='login-input-user'>
-              <span>用户名 <input type="text" value='sss' id='username-text' placeholder="请输入用户名"></span>
+              <span>用户名 <input type="text" value='' id='username-text' placeholder="请输入用户名"></span>
           </div>
           <div class="login-input-pass">
               <span>密  码 <input type="password" id='user-password' placeholder="请输入密码"></span>
@@ -71,8 +71,15 @@ export default {
       
     },
     loginVerify () {
-      this.$store.commit("confirmLogin")
+      if (document.getElementById('username-text').value == ''||document.getElementById('user-password').value=='')
+      {
+        alert('请正确输入用户名和密码！');
+      }
+      else{
+        this.$store.commit("confirmLogin");
+      }
     }
+
   }
 }
 </script>

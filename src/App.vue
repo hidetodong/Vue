@@ -40,8 +40,11 @@ export default {
     },
     //WebSocket连接控制
     initWebsocket () {
+
       const wsurl = "ws://127.0.0.1:8085";//这个地址由后端提供
       this.websock = new WebSocket(wsurl);
+      // 保存进全局WEBSOCKET变量内
+      this.WebCon.setWs(this.websock);
       this.websock.onmessage = this.websocketonmessage;
       this.websock.onopen = this.websocketonopen;
       this.websock.onerror = this.websocketonerror;
@@ -59,16 +62,16 @@ export default {
             sender = msg.from + ': ';
             break;
           case 'handshake':
-                var user_info = {'type': 'login', 'content': 'sss'};
-                // sendMsg(user_info);
-                return;
-            case 'login':
-            case 'logout':
-                user_name = msg.content;
-                name_list = msg.user_list;
-                change_type = msg.type;
-                dealUser(user_name, change_type, name_list);
-                return;
+            var user_info = {'type': 'login', 'content': 'sss'};
+            // sendMsg(user_info);
+            return;
+          case 'login':
+          case 'logout':
+            user_name = msg.content;
+            name_list = msg.user_list;
+            change_type = msg.type;
+            dealUser(user_name, change_type, name_list);
+            return;
         }
     },
     websocketonopen () {

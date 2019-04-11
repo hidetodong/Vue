@@ -1,14 +1,15 @@
 <template>
   <div id='talksbox'>
       <div class="talk-inner">
-
+        <diabox></diabox>
       </div>
       <div class="talk-input">
         <div class="talk-text">
-          <textarea name="" id="" cols="30" rows="10"></textarea>
+          <textarea  name="" id="text-content" cols="30" rows="10"></textarea>
         </div>
         <div class="talk-button">
-          <div class="talk-send-button">发送</div>
+          <div class="talk-send-button" v-on:click="sendMsg">发送</div>
+          <div class="talk-reset-button" v-on:click="resetMsgContent">清空聊天窗</div>
         </div>
       </div>
   </div>
@@ -20,6 +21,22 @@ export default {
   data () {
     return {
       
+    }
+  },
+  methods: {
+    sendMsg () {
+      // send()
+      var uname = this.$store.state.localUser.name
+      var str = document.getElementById('text-content').value
+      var msg_info_add = {
+        'name': uname,
+        'msg' : str
+      }
+      this.$store.commit("addMsg",msg_info_add)
+      document.getElementById('text-content').value=''
+    },
+    resetMsgContent () {
+      this.$store.commit("resetMsg")
     }
   }
   
@@ -41,6 +58,7 @@ export default {
     margin-right: 1%;
     margin-top: 1%;
     border: 1px solid;
+    overflow-y: scroll;
   }
   .talk-input{
     height: 30%;
@@ -72,6 +90,7 @@ export default {
     /* border: 1px solid; */
   }
   .talk-send-button{
+    display: inline-block;
     height: 100%;
     width: 10%;
     border-radius: 10px;
@@ -83,6 +102,23 @@ export default {
     text-shadow: 2px;
   }
   .talk-send-button:hover{
+    background-color: #c0c0c0;
+
+  }
+  .talk-reset-button{
+    display: inline-block;
+
+    height: 100%;
+    width: 10%;
+    border-radius: 10px;
+    border: 1px solid;
+    text-align: center;
+    line-height: 100%;
+    vertical-align: center;
+    font-size: 20px;
+    text-shadow: 2px;
+  }
+  .talk-reset-button:hover{
     background-color: #c0c0c0;
 
   }

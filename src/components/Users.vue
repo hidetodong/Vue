@@ -1,5 +1,7 @@
 <template>
   <div id="users">
+    <div class='local-user-inner'><h1>当前用户:{{localUser.name}}</h1></div>
+    <hr class="divide-line">
     <div class="users-inner"  v-for="x in users">
       <h1>
         <div class="p-name">{{x.name}}</div><div class="p-button">发送消息</div>
@@ -16,6 +18,11 @@ export default {
   data () {
     return {
         users:this.$store.state.user
+    }
+  },
+  computed: {
+    localUser () {
+      return this.$store.state.localUser
     }
   }
 }
@@ -71,6 +78,12 @@ export default {
     background-color: #c0c0c0;
     /* 此处要增加文字不可选中 */
   }
+  .local-user-inner{
+    height: 40px;
+    border-radius: 10px;
+    border:1px solid;
+
+  }
   #users h1 span:hover{
     color: blue;
     font-size: 14px;
@@ -102,5 +115,11 @@ export default {
     display: inline-block;
     width: 100%;
     height: 40px;
+  }
+  .divide-line{
+    margin-top: 1%;
+    margin-left: 10%;
+    width: 80%;
+    border-bottom: 1px solid #111111;
   }
 </style>

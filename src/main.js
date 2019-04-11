@@ -2,7 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-
+import WebCon from './js/webconnect'
 import TitleBar from './components/TitleBar'
 import BodyBar from './components/BodyBar'
 import MessageBox from './components/MessageBox'
@@ -13,6 +13,7 @@ import FileContainer from './components/FileContainer'
 import LoginBar from './components/LoginBar'
 import MessageBody from './components/MessageBody'
 import TalkingBox from './components/TalkingBox'
+import Diabox from './components/Diabox'
 // import Global from './components/Global'
 Vue.config.productionTip = false
 
@@ -28,7 +29,10 @@ Vue.component('filecontainer', FileContainer)
 Vue.component('loginbar', LoginBar)
 Vue.component('msgbody', MessageBody)
 Vue.component('talksbox', TalkingBox)
+Vue.component('diabox', Diabox)
 /* eslint-disable no-new */
+// 导入WebSocket连接模块
+Vue.prototype.WebCon = WebCon
 
 new Vue({
   el: '#app',
