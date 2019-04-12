@@ -30,10 +30,13 @@ export default {
       var str = document.getElementById('text-content').value
       var msg_info_add = {
         'name': uname,
-        'msg' : str
+        'content' : str,
+        'type': 'user'
       }
       this.$store.commit("addMsg",msg_info_add)
+      this.WebCon.ws.send(msg_info_add);
       document.getElementById('text-content').value=''
+      
     },
     resetMsgContent () {
       this.$store.commit("resetMsg")

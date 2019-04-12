@@ -68,7 +68,16 @@ export default {
       var sysMsg=userinfo.name + '已上线!';
       this.$store.commit("sysMsgRefresh",sysMsg);
       //发送Websocket包给PHP后台
+      var wsurl = this.$store.state.webInfo.wsurl
+      var websock = new WebSocket(wsurl);
+      this.WebCon.setWs(websock);
+      // 连接成功后控制台输出信息
+      this.WebCon.ws.onopen = function (e) {
+        console.log('连接成功！');
+      }
+      this.updateLocalState();
       
+
     },
     loginVerify () {
       if (document.getElementById('username-text').value == ''||document.getElementById('user-password').value=='')
@@ -78,6 +87,9 @@ export default {
       else{
         this.$store.commit("confirmLogin");
       }
+    },
+    updateLocalState () {
+      this.$store.commit("updateLocalStatus","在线")
     }
 
   }

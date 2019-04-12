@@ -1,6 +1,6 @@
 <template>
   <div id="users">
-    <div class='local-user-inner'><h1>当前用户:{{localUser.name}}</h1></div>
+    <div class='local-user-inner'><h1>当前用户:{{localUser.name}} | 状态： {{localUser.status}}</h1></div>
     <hr class="divide-line">
     <div class="users-inner"  v-for="x in users">
       <h1>
@@ -81,7 +81,7 @@ export default {
   .local-user-inner{
     height: 40px;
     border-radius: 10px;
-    border:1px solid;
+    /* border:1px solid; */
 
   }
   #users h1 span:hover{
@@ -117,7 +117,7 @@ export default {
     height: 40px;
   }
   .divide-line{
-    margin-top: 1%;
+    margin-top: 3%;
     margin-left: 10%;
     width: 80%;
     border-bottom: 1px solid #111111;

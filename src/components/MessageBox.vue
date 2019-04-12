@@ -30,8 +30,8 @@ export default {
   font-size: 20px;
   padding-left: 4%;
   margin: 0.5% auto 0 auto;
-  padding-top: 0.5%;
-  padding-bottom: 0.5%;
+  padding-top: 1%;
+  padding-bottom: 1%;
   width: 95%;
   /* display: inline-block; */
   border-radius: 10px;

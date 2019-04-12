@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-for="x in msg_info"><p>{{x.name}}:{{x.msg}}</p></div>
+        <div v-for="x in msg_info"><p>{{x.name}}:{{x.content}}</p></div>
         
     </div>
 </template>
@@ -34,7 +34,7 @@ export default {
         border:1px solid;
         display: inline-block;
         padding: 5px 1% 5px 1%;
-        margin-left: 3%;
+        margin-left: 2%;
         margin-top: 1%;
         font-size: 16px;
 

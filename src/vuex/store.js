@@ -3,6 +3,10 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 const state = {
+  // Websocket通用信息维护
+  webInfo: {
+    'wsurl': 'ws://127.0.0.1:8085'
+  },
   // 用于切换页面状态
   pageState: {
     'isLogin': false,
@@ -10,15 +14,16 @@ const state = {
   },
   // 用于存储登录用户信息
   localUser: {
-    'name': ''
+    'name': '',
+    'status': '离线'
   },
   // 用于存储已经登录在服务器上的用户信息
   user: [
-    {'name': '老王'}
+    {'name': '老王', 'url': '127.0.0.1:8888'}
   ],
   // 聊天界面中的消息
   msglist: [
-    {'name': '未知用户', 'msg': '你们都要死'}
+    {'name': '未知用户', 'content': '你们都要发财'}
   ],
   // 系统消息暂存
   systemMsg: {
@@ -41,6 +46,9 @@ const mutations = {
   },
   updateUserInfo (state, userinfo) {
     state.localUser.name = userinfo.name
+  },
+  updateLocalStatus (state, status) {
+    state.localUser.status = status
   },
   confirmLogin (state) {
     state.pageState.isLogin = true

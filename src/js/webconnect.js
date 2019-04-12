@@ -1,5 +1,5 @@
 export default {
-  ws: {},
+  ws: [],
   setWs: function (newWs) {
     this.ws = newWs
   }

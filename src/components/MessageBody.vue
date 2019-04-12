@@ -44,6 +44,7 @@ export default {
   .msg-container{
     height: 100%;
     border: 1px solid;
+    margin-top: -0.5%;
   }
   .msgcon-button{
     width: 50px;

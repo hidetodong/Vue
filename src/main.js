@@ -18,7 +18,6 @@ import Diabox from './components/Diabox'
 Vue.config.productionTip = false
 
 // 全局注册
-
 Vue.component('titlebar', TitleBar)
 Vue.component('bodybar', BodyBar)
 Vue.component('msgbox', MessageBox)
