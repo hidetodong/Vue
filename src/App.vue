@@ -39,18 +39,18 @@ export default {
       this.initWebsocket();
     },
     //WebSocket连接控制
-    initWebsocket () {
+    // initWebsocket () {
 
-      const wsurl = "ws://127.0.0.1:8085";//这个地址由后端提供
-      this.websock = new WebSocket(wsurl);
-      // 保存进全局WEBSOCKET变量内
-      this.WebCon.setWs(this.websock);
-      this.websock.onmessage = this.websocketonmessage;
-      this.websock.onopen = this.websocketonopen;
-      this.websock.onerror = this.websocketonerror;
-      this.websock.onclose = this.websocketclose;
-      console.log('连接成功！')
-    },
+    //   const wsurl = "ws://127.0.0.1:8085";//这个地址由后端提供
+    //   this.websock = new WebSocket(wsurl);
+    //   // 保存进全局WEBSOCKET变量内
+    //   this.WebCon.setWs(this.websock);
+    //   this.websock.onmessage = this.websocketonmessage;
+    //   this.websock.onopen = this.websocketonopen;
+    //   this.websock.onerror = this.websocketonerror;
+    //   this.websock.onclose = this.websocketclose;
+    //   console.log('连接成功！')
+    // },
     websocketonmessage (e) {
         var msg = JSON.parse(e.data);
         var sender,user_name,name_list,change_type;

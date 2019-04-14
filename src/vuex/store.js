@@ -15,6 +15,7 @@ const state = {
   // 用于存储登录用户信息
   localUser: {
     'name': '',
+    'password': '',
     'status': '离线'
   },
   // 用于存储已经登录在服务器上的用户信息
@@ -46,6 +47,7 @@ const mutations = {
   },
   updateUserInfo (state, userinfo) {
     state.localUser.name = userinfo.name
+    state.localUser.password = userinfo.password
   },
   updateLocalStatus (state, status) {
     state.localUser.status = status

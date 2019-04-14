@@ -35,7 +35,7 @@ export default {
     font-size: 15px;
   }
   .msgcon-inner{
-    margin: 0.3% auto 0.3% auto;
+    margin: 0.3% auto 0.5% auto;
     width: 99%;
     height: 100%;
     align-self: center;

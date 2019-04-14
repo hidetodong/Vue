@@ -29,7 +29,7 @@ export default {
 #msgbox span h1{
   font-size: 20px;
   padding-left: 4%;
-  margin: 0.5% auto 0 auto;
+  margin: 0.5% auto 1% auto;
   padding-top: 1%;
   padding-bottom: 1%;
   width: 95%;
@@ -41,5 +41,6 @@ export default {
   /* display: inline-block; */
   height: 100%;
   width: 100%;
+  margin-bottom: 1%;
 }
 </style>
