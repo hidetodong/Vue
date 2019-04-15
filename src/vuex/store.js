@@ -7,6 +7,10 @@ const state = {
   webInfo: {
     'wsurl': 'ws://127.0.0.1:8085'
   },
+
+  sockets: {
+    ws: []
+  },
   // 用于切换页面状态
   pageState: {
     'isLogin': false,
@@ -33,6 +37,9 @@ const state = {
 }
 // 存放修改变量的方法
 const mutations = {
+  setWs (state, ws) {
+    state.sockets.ws = ws
+  },
   addUser (state, Userinfo) {
     state.user.push(Userinfo)
   },

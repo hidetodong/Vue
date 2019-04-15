@@ -75,26 +75,36 @@ export default {
       console.log('已取得Websocket连接地址')
       var websock = new WebSocket(wsurl)
       console.log('已创建Websocket')
-      this.WebCon.setWs(websock)
+      // this.WebCon.setWs(websock)
+      this.$store.commit('setWs',websock)
       // 连接成功后控制台输出信息
       console.log('已保存Socket至全局变量')
-      this.WebCon.ws.onopen=this.webConnectOnOpen;
-      console.log(this.WebCon.ws.readyState)
+      // this.WebCon.ws.onopen=this.webConnectOnOpen;
+      this.$store.state.sockets.ws.onopen = this.webConnectOnOpen
+      console.log(this.$store.state.sockets.ws.readyState)
       console.log('已执行Socket ONOPEN函数')
-      this.WebCon.ws.onmessgage = function (e) {
+      var ws = this.$store.state.sockets.ws
+      // 接收到信息时 启用回调函数
+      this.$store.state.sockets.ws.onmessage = function (e) {
         var msg = JSON.parse(e.data)
         console.log(msg.type)
-      }
+        if (msg.type == 'handshake'){
+        console.log(this.$store.state.sockets.ws.readyState)
+        var userinfo = {
+          'type': 'login',
+          'content': this.$store.state.localUser.name 
+          }
+        userinfo = JSON.stringify(userinfo)
+        this.$store.state.sockets.ws.send(userinfo)
+        }
+      }.bind(this)
     },
     webConnectOnOpen (e) {      
       this.updateLocalState()
       console.log('页面登录状态信息已更新')
       this.confirmLogin()
       console.log('切换页面')
-      var msg = {
-        'content': 'niubi',
-        'type': 'handshake'
-      }
+      
       // var msg = JSON.parse(e.data)
       // console.log(msg.type)
     },
