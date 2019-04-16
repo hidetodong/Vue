@@ -15,12 +15,19 @@
 <script>
 // import {WebTool,newss} from './js/connect-util.js'
 import store from './vuex/store.js';
+// import func from '../vue-temp/vue-editor-bridge';
 export default {
   name: 'App',
   data () {
     return {
       
     }
+  },
+  created: function () {
+    // this.initWs()
+  },
+  beforeUpdate: function () {
+    
   },
   computed: {
             isLogin () {
@@ -30,14 +37,29 @@ export default {
         },
   //引入全局变量store
   store,
-  methods:{
+  methods: {
+    initWs () {
+      // var websock = new WebSocket(this.$store.state.webInfo.wsurl)
+      this.$store.commit('setWs',websock) 
+      this.$store.state.sockets.ws.onmessage = function (e) {
+        var msg = JSON.parse(e.data)
+        console.log(msg.type)
+        if (msg.type == 'handshake'){
+        console.log(this.$store.state.sockets.ws.readyState)
+        var userinfo = {
+          'type': 'login',
+          'content': this.$store.state.localUser.name 
+        }
+        userinfo = JSON.stringify(userinfo)
+        this.$store.state.sockets.ws.send(userinfo)
+        }
+      }.bind(this)
+    },
+    
     // created () {
     //   this.initWebsocket;
     // },
     //页面点击逻辑 
-    created () {
-      this.initWebsocket();
-    },
     //WebSocket连接控制
     // initWebsocket () {
 
@@ -52,39 +74,44 @@ export default {
     //   console.log('连接成功！')
     // },
     websocketonmessage (e) {
-        var msg = JSON.parse(e.data);
-        var sender,user_name,name_list,change_type;
-        switch (msg.type) {
-          case 'system':
-            sender = '系统消息：';
-            break;
-          case 'user':
-            sender = msg.from + ': ';
-            break;
-          case 'handshake':
-            var user_info = {'type': 'login', 'content': 'sss'};
-            // sendMsg(user_info);
-            return;
-          case 'login':
-          case 'logout':
-            user_name = msg.content;
-            name_list = msg.user_list;
-            change_type = msg.type;
-            dealUser(user_name, change_type, name_list);
-            return;
+      console.log('12314');
+        // var msg = JSON.parse(e.data);
+        // var sender,user_name,name_list,change_type;
+        // switch (msg.type) {
+        //   case 'system':
+        //     sender = '系统消息：';
+        //     break;
+        //   case 'user':
+        //     sender = msg.from + ': ';
+        //     break;
+        //   case 'handshake':
+        //     var user_info = {'type': 'login', 'content': 'sss'};
+        //     // sendMsg(user_info);
+        //     return;
+        //   case 'login':
+        //   case 'logout':
+        //     user_name = msg.content;
+        //     name_list = msg.user_list;
+        //     change_type = msg.type;
+        //     dealUser(user_name, change_type, name_list);
+        //     return;
+        this.$store.state.sockets.ws.onmessage = function (e) {
+        var msg = JSON.parse(e.data)
+        console.log(msg.type)
+        if (msg.type == 'handshake'){
+        console.log(this.$store.state.sockets.ws.readyState)
+        var userinfo = {
+          'type': 'login',
+          'content': this.$store.state.localUser.name 
+          }
+        userinfo = JSON.stringify(userinfo)
+        this.$store.state.sockets.ws.send(userinfo)
+         }
+         }.bind(this)
         }
     },
     websocketonopen () {
-      // console.log('连接成功');
-      // console.log(this.$store.state.localUser.name);
-      var sysStr='连接成功！'+this.$store.state.localUser.name+'已上线';
-      // this.$store.state.systemMsg='连接成功！'+this.$store.state.localUser.name+'已上线';
-      // setTimeout(1000);
-      // console.log(sysStr);
-      this.sysMsgRefresh(sysStr);
-      // var str=this.$store.state.systemMsg.message;
-      // console.log(this.$store.state.systemMsg);
-      // console.log(str)
+    
 
     },
     websocketonerror () {
@@ -96,7 +123,7 @@ export default {
     //Websocket信息处理
 
 
-    //页面其他逻辑 暂缺
+    
     sendMsg (userinfo) {
 
     },
@@ -105,14 +132,9 @@ export default {
     },
     listMsg () {
       
-    },
-    sysMsgRefresh(str){
-      console.log(str);
-      this.$store.commit("sysMsgRefresh",str);
     }
-  }
-  
 }
+
 </script>
 
 <style scoped>

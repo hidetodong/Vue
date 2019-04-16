@@ -60,6 +60,7 @@ export default {
     /* border: 1px solid; */
     text-align: center;
     vertical-align: bottom;
+    -webkit-user-select:none; 
     }
 
   .p-button{
@@ -73,16 +74,18 @@ export default {
     line-height: 50%;
     padding-left: 2%;
     padding-right: 2%;
+    -webkit-user-select:none; 
   }
   .p-button:hover{
     background-color: #c0c0c0;
     /* 此处要增加文字不可选中 */
+    -webkit-user-select:none; 
   }
   .local-user-inner{
     height: 40px;
     border-radius: 10px;
     /* border:1px solid; */
-
+    -webkit-user-select:none; 
   }
   #users h1 span:hover{
     color: blue;

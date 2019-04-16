@@ -32,7 +32,7 @@ export default {
     text-align: center;
     width: 100%;
     padding-top: 2%;
-
+    -webkit-user-select:none; 
   }
   #listbar h1{
     display: inline-block;

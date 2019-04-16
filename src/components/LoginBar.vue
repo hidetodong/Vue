@@ -72,46 +72,68 @@ export default {
       this.$store.commit("sysMsgRefresh",sysMsg);
       //发送Websocket包给PHP后台
       var wsurl = this.$store.state.webInfo.wsurl
-      console.log('已取得Websocket连接地址')
+      // console.log('已取得Websocket连接地址')
       var websock = new WebSocket(wsurl)
       console.log('已创建Websocket')
-      // this.WebCon.setWs(websock)
       this.$store.commit('setWs',websock)
       // 连接成功后控制台输出信息
       console.log('已保存Socket至全局变量')
-      // this.WebCon.ws.onopen=this.webConnectOnOpen;
       this.$store.state.sockets.ws.onopen = this.webConnectOnOpen
       console.log(this.$store.state.sockets.ws.readyState)
       console.log('已执行Socket ONOPEN函数')
-      var ws = this.$store.state.sockets.ws
       // 接收到信息时 启用回调函数
       this.$store.state.sockets.ws.onmessage = function (e) {
         var msg = JSON.parse(e.data)
-        console.log(msg.type)
-        if (msg.type == 'handshake'){
-        console.log(this.$store.state.sockets.ws.readyState)
-        var userinfo = {
-          'type': 'login',
-          'content': this.$store.state.localUser.name 
-          }
-        userinfo = JSON.stringify(userinfo)
-        this.$store.state.sockets.ws.send(userinfo)
+        // console.log(msg.type)
+        switch (msg.type){
+          // 如果是握手 则发送用户名至服务器
+          case 'handshake':
+            var userinfo = {
+            'type': 'login',
+            'content': this.$store.state.localUser.name 
+            }
+            userinfo = JSON.stringify(userinfo)
+            this.$store.state.sockets.ws.send(userinfo)
+            break;
+          // 如果是一般信息 则解析 并填充页面
+          case 'user':
+            console.log('niubia')
+            break;
+          case 'system':
+            break;
         }
       }.bind(this)
+     
     },
     webConnectOnOpen (e) {      
       this.updateLocalState()
       console.log('页面登录状态信息已更新')
       this.confirmLogin()
       console.log('切换页面')
-      
-      // var msg = JSON.parse(e.data)
-      // console.log(msg.type)
     },
-    // webConnectOnMessage (e) {
-    // var msg = JSON.parse(e.data)
-    //   console.log(msg.type)
-    // },
+    webConnectOnOnmessage (e) {
+        var msg = JSON.parse(e.data)
+        // console.log(msg.type)
+        switch (msg.type){
+          // 如果是握手 则发送用户名至服务器
+          case 'handshake':
+            var userinfo = {
+            'type': 'login',
+            'content': this.$store.state.localUser.name 
+            }
+            userinfo = JSON.stringify(userinfo)
+            this.$store.state.sockets.ws.send(userinfo)
+            break;
+          // 如果是一般信息 则解析 并填充页面
+          case 'user':
+            console.log('niubia')
+            break;
+          case 'system':
+            break;
+        }
+        // console.log(this.$store.state.sockets.ws.readyState)
+      
+    },
     loginVerify () {
       if (document.getElementById('username-text').value == ''||document.getElementById('user-password').value=='')
       {

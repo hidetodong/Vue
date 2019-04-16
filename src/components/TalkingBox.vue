@@ -33,9 +33,14 @@ export default {
         'content' : str,
         'type': 'user'
       }
-      this.$store.commit("addMsg",msg_info_add)
-      this.WebCon.ws.send(msg_info_add);
-      document.getElementById('text-content').value=''
+      this.$store.commit("addMsg",msg_info_add);
+      // this.WebCon.ws.send(msg_info_add);
+      // 格式化发送信息
+      msg_info_add = JSON.stringify(msg_info_add)
+      // 使用Socket进行发送
+      this.$store.state.sockets.ws.send(msg_info_add)
+      // 发送后清空输入框
+      document.getElementById('text-content').value='';
       
     },
     resetMsgContent () {
@@ -103,6 +108,7 @@ export default {
     vertical-align: center;
     font-size: 20px;
     text-shadow: 2px;
+    -webkit-user-select:none; 
   }
   .talk-send-button:hover{
     background-color: #c0c0c0;
@@ -120,6 +126,7 @@ export default {
     vertical-align: center;
     font-size: 20px;
     text-shadow: 2px;
+    -webkit-user-select:none; 
   }
   .talk-reset-button:hover{
     background-color: #c0c0c0;
