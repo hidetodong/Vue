@@ -1,0 +1,7 @@
+"2019-04-17 15:43:25" | "server: Resource id #4 started,pid: Hideto"
+"2019-04-17 15:43:50" | "server: Resource id #4 started,pid: Hideto"
+"2019-04-17 15:43:54" | "server: Resource id #4 started,pid: Hideto"
+"2019-04-17 15:43:58" | "socket_connect" |  | "" | false | "127.0.0.1" | 3878
+"2019-04-17 15:43:58" | "hand_shake" |  | "127.0.0.1" | 3878
+"2019-04-17 15:44:24" | "socket_connect" |  | "" | false | "127.0.0.1" | 3926
+"2019-04-17 15:44:24" | "hand_shake" |  | "127.0.0.1" | 3926

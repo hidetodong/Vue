@@ -24,7 +24,7 @@ const state = {
   },
   // 用于存储已经登录在服务器上的用户信息
   user: [
-    {'name': '老王', 'url': '127.0.0.1:8888'}
+    {'name': '老王', 'url': '127.0.0.1:8888', 'port': '1000'}
   ],
   // 聊天界面中的消息
   msglist: [
@@ -50,7 +50,7 @@ const mutations = {
     state.msglist = []
   },
   sysMsgRefresh (state, sysStr) {
-    state.systemMsg.message = sysStr
+    state.systemMsg.message = sysStr.message
   },
   updateUserInfo (state, userinfo) {
     state.localUser.name = userinfo.name

@@ -3,6 +3,7 @@
 error_reporting(E_ALL);
 set_time_limit(0);// 设置超时时间为无限,防止超时
 //date_default_timezone_set('Asia/shanghai');
+
 class WebSocket {
     const LOG_PATH = '';
     const LISTEN_SOCKET_NUM = 9;
@@ -16,6 +17,7 @@ class WebSocket {
      *  todo 解释socket与file号对应
      */
     private $sockets = [];
+    private $user_info = [];
     private $master;
     public function __construct($host, $port) {
         try {
@@ -44,13 +46,20 @@ class WebSocket {
         $this->debug(["server: {$this->master} started,pid: {$pid}"]);
         while (true) {
             try {
-                $this->doServer();  {
+                $this->doServer();
+                print_r($this->sockets) ;
+//                foreach ($this->sockets as $socket) {
+//                    print_r($this->sockets[(int)$socket]['handshake']);
+//                }
+
+            }
+            catch (\Exception $e){
                 $this->error([
                     'error_do_server',
                     $e->getCode(),
                     $e->getMessage()
                 ]);
-            }
+            };
         }
     }
     private function doServer() {
@@ -70,7 +79,7 @@ class WebSocket {
             // 如果可读的是服务器socket,则处理连接逻辑
             if ($socket == $this->master) {
                 $client = socket_accept($this->master);
-                echo $client;
+                //echo $client;
                 // 创建,绑定,监听后accept函数将会接受socket要来的连接,一旦有一个连接成功,将会返回一个新的socket资源用以交互,如果是一个多个连接的队列,只会处理第一个,如果没有连接的话,进程将会被阻塞,直到连接上.如果用set_socket_blocking或socket_set_noblock()设置了阻塞,会返回false;返回资源后,将会持续等待连接。
                 if (false === $client) {
                     $this->error([
@@ -85,7 +94,9 @@ class WebSocket {
                 }
             } else {
                 // 如果可读的是其他已连接socket,则读取其数据,并处理应答逻辑
+                // 函数前加@ 表示错误信息控制 不输出
                 $bytes = @socket_recv($socket, $buffer, 2048, 0);
+                // 长度小于9 断开连接
                 if ($bytes < 9) {
                     $recv_msg = $this->disconnect($socket);
                 } else {
@@ -98,9 +109,28 @@ class WebSocket {
                 }
                 array_unshift($recv_msg, 'receive_msg');
                 $msg = self::dealMsg($socket, $recv_msg);
+//                $this->broadcast($this->sockets);
                 $this->broadcast($msg);
+//                print_r($this->refreshUserlist($this->sockets));
             }
         }
+    }
+
+    /**
+     * 发送最新的用户列表信息至客户端
+     * @param $socket
+     *
+     */
+    public function refreshUserlist($sockets){
+        $userinfo_list = [];
+        $socketsIndex = array_column($sockets, 'resource');
+        foreach ($socketsIndex as $socket){
+            $userinfo_list[(int)$socket]['uname']=$sockets[(int)$socket]['uname'];
+            $userinfo_list[(int)$socket]['ip']=$sockets[(int)$socket]['ip'];
+            $userinfo_list[(int)$socket]['port']=$sockets[(int)$socket]['port'];
+        }
+        return $userinfo_list;
+
     }
     /**
      * 将socket添加到已连接列表,但握手状态留空;
@@ -240,6 +270,8 @@ class WebSocket {
     private function dealMsg($socket, $recv_msg) {
         $msg_type = $recv_msg['type'];
         $msg_content = $recv_msg['content'];
+        $msg_ip = $this->sockets[(int)$socket]['ip'];
+        $msg_port =$this->sockets[(int)$socket]['port'];
         $response = [];
         switch ($msg_type) {
             case 'login':
@@ -261,15 +293,29 @@ class WebSocket {
                 $response['type'] = 'user';
                 $response['from'] = $uname;
                 $response['content'] = $msg_content;
+                $response['ip'] = $msg_ip;
+                $response['port'] = $msg_port;
+                break;
+            case 'system':
+                $response['type'] = 'system';
+                $response['from'] = 'Server';
+                $response['content'] = $msg_content;
                 break;
         }
         return $this->build(json_encode($response));
+    }
+    private function sendUserInfo($sockets){
+//        foreach() {
+//
+//        }
     }
     /**
      * 广播消息
      *
      * @param $data
      */
+    //广播收到的信息
+    // 修改
     private function broadcast($data) {
         foreach ($this->sockets as $socket) {
             if ($socket['resource'] == $this->master) {
@@ -301,4 +347,4 @@ class WebSocket {
         file_put_contents(self::LOG_PATH . 'websocket_error.log', implode(' | ', $info) . "\r\n", FILE_APPEND);
     }
 }
-$ws = new WebSocket("127.0.0.1", "8081");
+$ws = new WebSocket("127.0.0.1", "8085");

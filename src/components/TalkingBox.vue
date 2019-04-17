@@ -33,7 +33,7 @@ export default {
         'content' : str,
         'type': 'user'
       }
-      this.$store.commit("addMsg",msg_info_add);
+      // this.$store.commit("addMsg",msg_info_add);
       // this.WebCon.ws.send(msg_info_add);
       // 格式化发送信息
       msg_info_add = JSON.stringify(msg_info_add)

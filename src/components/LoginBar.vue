@@ -63,27 +63,28 @@ export default {
         'password':document.getElementById('user-password').value
       }
       var info = '已取得用户名，值为' + '('+userinfo.name+')'
-      console.log(info)
       //验证用户名合理性
       this.loginVerify();
       //vue更新数据
       this.$store.commit("updateUserInfo",userinfo);
-      var sysMsg=userinfo.name + '已上线!';
-      this.$store.commit("sysMsgRefresh",sysMsg);
       //发送Websocket包给PHP后台
       var wsurl = this.$store.state.webInfo.wsurl
       // console.log('已取得Websocket连接地址')
       var websock = new WebSocket(wsurl)
-      console.log('已创建Websocket')
+      // console.log('已创建Websocket')
       this.$store.commit('setWs',websock)
       // 连接成功后控制台输出信息
-      console.log('已保存Socket至全局变量')
+
+      // console.log('已保存Socket至全局变量')
       this.$store.state.sockets.ws.onopen = this.webConnectOnOpen
-      console.log(this.$store.state.sockets.ws.readyState)
-      console.log('已执行Socket ONOPEN函数')
+      // 更新系统消息
+      
+      // console.log(this.$store.state.sockets.ws.readyState)
+      // console.log('已执行Socket ONOPEN函数')
+
       // 接收到信息时 启用回调函数
       this.$store.state.sockets.ws.onmessage = function (e) {
-        var msg = JSON.parse(e.data)
+        var msg = JSON.parse(e.data) 
         // console.log(msg.type)
         switch (msg.type){
           // 如果是握手 则发送用户名至服务器
@@ -97,43 +98,57 @@ export default {
             break;
           // 如果是一般信息 则解析 并填充页面
           case 'user':
-            console.log('niubia')
+            // 解析从服务器发送来的消息 并且填充到页面
+            this.diaboxAdd(msg);
+            //更新用户列表
+            this.userListReset(msg);
             break;
+          // 系统信息 则更新系统消息栏
           case 'system':
+            var sysMsg = {
+              'message': msg.content
+            }
+            this.$store.commit('sysMsgRefresh',sysMsg)
             break;
+          case 'login':
+            break;
+          case 'logout':
+            break;
+          
         }
       }.bind(this)
      
     },
+
     webConnectOnOpen (e) {      
       this.updateLocalState()
-      console.log('页面登录状态信息已更新')
+      // console.log('页面登录状态信息已更新')
       this.confirmLogin()
-      console.log('切换页面')
-    },
-    webConnectOnOnmessage (e) {
-        var msg = JSON.parse(e.data)
-        // console.log(msg.type)
-        switch (msg.type){
-          // 如果是握手 则发送用户名至服务器
-          case 'handshake':
-            var userinfo = {
-            'type': 'login',
-            'content': this.$store.state.localUser.name 
-            }
-            userinfo = JSON.stringify(userinfo)
-            this.$store.state.sockets.ws.send(userinfo)
-            break;
-          // 如果是一般信息 则解析 并填充页面
-          case 'user':
-            console.log('niubia')
-            break;
-          case 'system':
-            break;
-        }
-        // console.log(this.$store.state.sockets.ws.readyState)
+      // console.log('切换页面')
+      // 更新系统消息
+      this.sysMsgReset()
       
     },
+    // webConnectOnOnmessage (e) {
+    //     var msg = JSON.parse(e.data)
+    //     // console.log(msg.type)
+    //     switch (msg.type){
+    //       // 如果是握手 则发送用户名至服务器
+    //       case 'handshake':
+    //         var userinfo = {
+    //         'type': 'login',
+    //         'content': this.$store.state.localUser.name 
+    //         }
+    //         userinfo = JSON.stringify(userinfo)
+    //         this.$store.state.sockets.ws.send(userinfo)
+    //         break;
+    //       // 如果是一般信息 则解析 并填充页面
+    //       case 'user':
+    //         console.log('niubia')
+    //         break;
+    //       case 'system':
+    //         break;
+    //     } 
     loginVerify () {
       if (document.getElementById('username-text').value == ''||document.getElementById('user-password').value=='')
       {
@@ -145,8 +160,31 @@ export default {
     },
     confirmLogin () {
       this.$store.commit("confirmLogin")
-    }
+    },
+    sysMsgReset () {
+      var userinfo = {
+        'name':document.getElementById('username-text').value,
+        'password':document.getElementById('user-password').value
+      }
+      var sysMsg=userinfo.name + '已上线!';
+      var sys_send = {
+        'type': 'system',
+        'content': sysMsg
+      }
+      sys_send = JSON.stringify(sys_send)
+      // this.$store.commit("sysMsgRefresh",sysMsg);
+      this.$store.state.sockets.ws.send(sys_send) 
+    },
+    diaboxAdd (msg) {
+      var msg_con = {
+              'name': msg.from,
+              'content': msg.content
+            }
+      this.$store.commit('addMsg',msg_con)
+    },
+    userListReset (msg) {
 
+    }
   }
 }
 </script>
