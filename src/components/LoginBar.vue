@@ -89,12 +89,7 @@ export default {
         switch (msg.type){
           // 如果是握手 则发送用户名至服务器
           case 'handshake':
-            var userinfo = {
-            'type': 'login',
-            'content': this.$store.state.localUser.name 
-            }
-            userinfo = JSON.stringify(userinfo)
-            this.$store.state.sockets.ws.send(userinfo)
+            this.handshakeInfo()
             break;
           // 如果是一般信息 则解析 并填充页面
           case 'user':
@@ -105,10 +100,9 @@ export default {
             break;
           // 系统信息 则更新系统消息栏
           case 'system':
-            var sysMsg = {
-              'message': msg.content
-            }
-            this.$store.commit('sysMsgRefresh',sysMsg)
+            // 更新系统消息
+            this.sysMsgReset(msg);
+            this.userListReset(msg);
             break;
           case 'login':
             break;
@@ -119,14 +113,14 @@ export default {
       }.bind(this)
      
     },
-
+    
     webConnectOnOpen (e) {      
       this.updateLocalState()
       // console.log('页面登录状态信息已更新')
       this.confirmLogin()
       // console.log('切换页面')
       // 更新系统消息
-      this.sysMsgReset()
+      this.sysMsgLogin()
       
     },
     // webConnectOnOnmessage (e) {
@@ -161,7 +155,7 @@ export default {
     confirmLogin () {
       this.$store.commit("confirmLogin")
     },
-    sysMsgReset () {
+    sysMsgLogin () {
       var userinfo = {
         'name':document.getElementById('username-text').value,
         'password':document.getElementById('user-password').value
@@ -175,6 +169,13 @@ export default {
       // this.$store.commit("sysMsgRefresh",sysMsg);
       this.$store.state.sockets.ws.send(sys_send) 
     },
+    //根据实际需求修改
+    sysMsgReset (msg) {
+      var sysMsg = {
+              'message': msg.content
+            }
+      this.$store.commit('sysMsgRefresh',sysMsg)
+    },
     diaboxAdd (msg) {
       var msg_con = {
               'name': msg.from,
@@ -184,6 +185,14 @@ export default {
     },
     userListReset (msg) {
 
+    },
+    handshakeInfo () {
+      var userinfo = {
+            'type': 'login',
+            'content': this.$store.state.localUser.name 
+            }
+            userinfo = JSON.stringify(userinfo)
+            this.$store.state.sockets.ws.send(userinfo)
     }
   }
 }

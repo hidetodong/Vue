@@ -95,7 +95,7 @@ class WebSocket {
             } else {
                 // 如果可读的是其他已连接socket,则读取其数据,并处理应答逻辑
                 // 函数前加@ 表示错误信息控制 不输出
-                $bytes = @socket_recv($socket, $buffer, 2048, 0);
+                $bytes = @socket_recv($socket, $buffer, 4096, 0);
                 // 长度小于9 断开连接
                 if ($bytes < 9) {
                     $recv_msg = $this->disconnect($socket);
@@ -169,7 +169,6 @@ class WebSocket {
      *
      * @param $socket
      * @param $buffer
-     *
      * @return bool
      */
     public function handShake($socket, $buffer) {

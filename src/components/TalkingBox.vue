@@ -88,7 +88,7 @@ export default {
     resize: none;
   }
   .talk-text textarea:active{
-    box-shadow:0 0 10px rgb(137, 20, 233) inset;
+    box-shadow:0 0 10px rgb(111, 120, 233) inset;
   }
   .talk-button{
     height: 10%;
