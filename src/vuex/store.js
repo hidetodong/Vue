@@ -7,7 +7,6 @@ const state = {
   webInfo: {
     'wsurl': 'ws://127.0.0.1:8085'
   },
-
   sockets: {
     ws: []
   },
@@ -24,7 +23,7 @@ const state = {
   },
   // 用于存储已经登录在服务器上的用户信息
   user: [
-    {'name': '老王', 'url': '127.0.0.1:8888', 'port': '1000'}
+    {'name': '老王', 'ip': '127.0.0.1:8888', 'port': '1000'}
   ],
   // 聊天界面中的消息
   msglist: [
@@ -43,8 +42,8 @@ const mutations = {
   addUser (state, Userinfo) {
     state.user.push(Userinfo)
   },
-  addMsg (state, msg_info_add) {
-    state.msglist.push(msg_info_add)
+  addMsg (state, msgInfoAdd) {
+    state.msglist.push(msgInfoAdd)
   },
   resetMsg (state) {
     state.msglist = []
@@ -61,6 +60,9 @@ const mutations = {
   },
   confirmLogin (state) {
     state.pageState.isLogin = true
+  },
+  resetUserList (state, userlist) {
+    state.user = userlist
   }
 }
 

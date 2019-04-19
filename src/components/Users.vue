@@ -17,12 +17,15 @@ export default {
   name: 'users',
   data () {
     return {
-        users:this.$store.state.user
+        // users:this.$store.state.user
     }
   },
   computed: {
     localUser () {
       return this.$store.state.localUser
+    },
+    users () {
+      return this.$store.state.user
     }
   }
 }

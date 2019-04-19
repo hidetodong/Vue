@@ -110,8 +110,10 @@ class WebSocket {
                 array_unshift($recv_msg, 'receive_msg');
                 $msg = self::dealMsg($socket, $recv_msg);
 //                $this->broadcast($this->sockets);
+                // 广播接收的消息
                 $this->broadcast($msg);
-//                print_r($this->refreshUserlist($this->sockets));
+                // 更新用户列表
+
             }
         }
     }
@@ -267,6 +269,7 @@ class WebSocket {
      * @return string
      */
     private function dealMsg($socket, $recv_msg) {
+        $msg_user_list=self::refreshUserlist($this->sockets);
         $msg_type = $recv_msg['type'];
         $msg_content = $recv_msg['content'];
         $msg_ip = $this->sockets[(int)$socket]['ip'];
@@ -298,7 +301,10 @@ class WebSocket {
             case 'system':
                 $response['type'] = 'system';
                 $response['from'] = 'Server';
-                $response['content'] = $msg_content;
+                $response['content']['system_data']= $msg_content;
+                $response['content']['userlist']=$msg_user_list;
+                echo $response;
+
                 break;
         }
         return $this->build(json_encode($response));

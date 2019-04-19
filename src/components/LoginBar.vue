@@ -57,12 +57,11 @@ export default {
     // },
     updateUserInfo () {
       //新选项之后补充
-       //取得数据
+      //取得数据
       var userinfo = {
         'name':document.getElementById('username-text').value,
         'password':document.getElementById('user-password').value
       }
-      var info = '已取得用户名，值为' + '('+userinfo.name+')'
       //验证用户名合理性
       this.loginVerify();
       //vue更新数据
@@ -74,14 +73,11 @@ export default {
       // console.log('已创建Websocket')
       this.$store.commit('setWs',websock)
       // 连接成功后控制台输出信息
-
       // console.log('已保存Socket至全局变量')
       this.$store.state.sockets.ws.onopen = this.webConnectOnOpen
       // 更新系统消息
-      
       // console.log(this.$store.state.sockets.ws.readyState)
       // console.log('已执行Socket ONOPEN函数')
-
       // 接收到信息时 启用回调函数
       this.$store.state.sockets.ws.onmessage = function (e) {
         var msg = JSON.parse(e.data) 
@@ -89,20 +85,21 @@ export default {
         switch (msg.type){
           // 如果是握手 则发送用户名至服务器
           case 'handshake':
-            this.handshakeInfo()
+            this.handshakeInfo();
             break;
           // 如果是一般信息 则解析 并填充页面
           case 'user':
             // 解析从服务器发送来的消息 并且填充到页面
             this.diaboxAdd(msg);
-            //更新用户列表
-            this.userListReset(msg);
+            // 更新用户列表
+            // this.userListReset(msg);
             break;
           // 系统信息 则更新系统消息栏
           case 'system':
             // 更新系统消息
             this.sysMsgReset(msg);
-            this.userListReset(msg);
+            // 更新用户列表
+            this.userListReset(msg);          
             break;
           case 'login':
             break;
@@ -123,26 +120,6 @@ export default {
       this.sysMsgLogin()
       
     },
-    // webConnectOnOnmessage (e) {
-    //     var msg = JSON.parse(e.data)
-    //     // console.log(msg.type)
-    //     switch (msg.type){
-    //       // 如果是握手 则发送用户名至服务器
-    //       case 'handshake':
-    //         var userinfo = {
-    //         'type': 'login',
-    //         'content': this.$store.state.localUser.name 
-    //         }
-    //         userinfo = JSON.stringify(userinfo)
-    //         this.$store.state.sockets.ws.send(userinfo)
-    //         break;
-    //       // 如果是一般信息 则解析 并填充页面
-    //       case 'user':
-    //         console.log('niubia')
-    //         break;
-    //       case 'system':
-    //         break;
-    //     } 
     loginVerify () {
       if (document.getElementById('username-text').value == ''||document.getElementById('user-password').value=='')
       {
@@ -172,7 +149,7 @@ export default {
     //根据实际需求修改
     sysMsgReset (msg) {
       var sysMsg = {
-              'message': msg.content
+              'message': msg.content.system_data
             }
       this.$store.commit('sysMsgRefresh',sysMsg)
     },
@@ -184,7 +161,9 @@ export default {
       this.$store.commit('addMsg',msg_con)
     },
     userListReset (msg) {
-
+      var user_list = msg.content.userlist
+      // this.$store.commit('resetUserList',user_list)
+      console.log(user_list)
     },
     handshakeInfo () {
       var userinfo = {
