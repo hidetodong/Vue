@@ -113,7 +113,7 @@ class WebSocket {
                 // 广播接收的消息
                 $this->broadcast($msg);
                 // 更新用户列表
-
+                print_r($this->refreshUserlist($this->sockets));
             }
         }
     }
@@ -127,6 +127,9 @@ class WebSocket {
         $userinfo_list = [];
         $socketsIndex = array_column($sockets, 'resource');
         foreach ($socketsIndex as $socket){
+            if ($socket['resource'] == $this->master) {
+                continue;
+            }
             $userinfo_list[(int)$socket]['uname']=$sockets[(int)$socket]['uname'];
             $userinfo_list[(int)$socket]['ip']=$sockets[(int)$socket]['ip'];
             $userinfo_list[(int)$socket]['port']=$sockets[(int)$socket]['port'];

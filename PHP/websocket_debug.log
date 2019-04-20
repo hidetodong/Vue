@@ -44,3 +44,9 @@
 "2019-04-19 13:26:57" | "server: Resource id #4 started,pid: Hideto"
 "2019-04-19 13:27:12" | "socket_connect" |  | "" | false | "127.0.0.1" | 10172
 "2019-04-19 13:27:12" | "hand_shake" |  | "127.0.0.1" | 10172
+"2019-04-20 07:39:53" | "server: Resource id #4 started,pid: Hideto"
+"2019-04-20 07:40:05" | "socket_connect" |  | "" | false | "127.0.0.1" | 1150
+"2019-04-20 07:40:05" | "hand_shake" |  | "127.0.0.1" | 1150
+"2019-04-20 08:24:04" | "server: Resource id #4 started,pid: Hideto"
+"2019-04-20 08:28:14" | "socket_connect" |  | "" | false | "127.0.0.1" | 6088
+"2019-04-20 08:28:15" | "hand_shake" |  | "127.0.0.1" | 6088

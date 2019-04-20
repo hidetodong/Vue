@@ -98,7 +98,10 @@ export default {
           case 'system':
             // 更新系统消息
             this.sysMsgReset(msg);
-            // 更新用户列表
+            // // 更新用户列表
+            // this.userListReset(msg);          
+            break;
+          case 'userinfo':
             this.userListReset(msg);          
             break;
           case 'login':
@@ -112,10 +115,10 @@ export default {
     },
     
     webConnectOnOpen (e) {      
+      // 打开连接时 更新本地用户状态
       this.updateLocalState()
-      // console.log('页面登录状态信息已更新')
+      // 转换页面
       this.confirmLogin()
-      // console.log('切换页面')
       // 更新系统消息
       this.sysMsgLogin()
       
@@ -226,7 +229,8 @@ export default {
     line-height: 100%;
   }
   .login-input-user span input{
-    width: 70%;
+    margin-right: 0%;
+    width:70%;
     border: none;
     text-indent: 10px;
     border-left: 1px solid;
