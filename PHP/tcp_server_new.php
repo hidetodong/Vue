@@ -105,15 +105,19 @@ class WebSocket {
                         continue;
                     } else {
                         $recv_msg = self::parse($buffer);
+
                     }
                 }
                 array_unshift($recv_msg, 'receive_msg');
                 $msg = self::dealMsg($socket, $recv_msg);
+
 //                $this->broadcast($this->sockets);
                 // 广播接收的消息
                 $this->broadcast($msg);
+
                 // 更新用户列表
-                print_r($this->refreshUserlist($this->sockets));
+                $this->refreshUserlist($this->sockets);
+
             }
         }
     }
@@ -126,15 +130,20 @@ class WebSocket {
     public function refreshUserlist($sockets){
         $userinfo_list = [];
         $socketsIndex = array_column($sockets, 'resource');
+        $userinfo_list['type']='userinfo';
+        $userinfo_list['from']='Server';
+        // 遍历服务器上已存储的所有已连接的Socket的客户端信息 并取出用户名 IP 和PORT
         foreach ($socketsIndex as $socket){
             if ($socket['resource'] == $this->master) {
                 continue;
             }
-            $userinfo_list[(int)$socket]['uname']=$sockets[(int)$socket]['uname'];
-            $userinfo_list[(int)$socket]['ip']=$sockets[(int)$socket]['ip'];
-            $userinfo_list[(int)$socket]['port']=$sockets[(int)$socket]['port'];
+            $userinfo_list['data'][(int)$socket]['uname']=$sockets[(int)$socket]['uname'];
+            $userinfo_list['data'][(int)$socket]['ip']=$sockets[(int)$socket]['ip'];
+            $userinfo_list['data'][(int)$socket]['port']=$sockets[(int)$socket]['port'];
         }
-        return $userinfo_list;
+        print_r($userinfo_list);
+        $userList =$this->build(json_encode($userinfo_list));
+        $this->broadcast($userList);
 
     }
     /**
@@ -272,7 +281,7 @@ class WebSocket {
      * @return string
      */
     private function dealMsg($socket, $recv_msg) {
-        $msg_user_list=self::refreshUserlist($this->sockets);
+//        $msg_user_list=self::refreshUserlist($this->sockets);
         $msg_type = $recv_msg['type'];
         $msg_content = $recv_msg['content'];
         $msg_ip = $this->sockets[(int)$socket]['ip'];
@@ -288,10 +297,16 @@ class WebSocket {
                 $response['user_list'] = $user_list;
                 break;
             case 'logout':
-                $user_list = array_column($this->sockets, 'uname');
-                $response['type'] = 'logout';
-                $response['content'] = $msg_content;
-                $response['user_list'] = $user_list;
+                // 去除已注销的用户
+                $this->disconnect($socket);
+                echo '注销完毕';
+//              $user_list = array_column($this->sockets, 'uname');
+//              $response['type'] = 'logout';
+//              $response['content'] = $msg_content;
+//              $response['user_list'] = $user_list;
+//                foreach()
+
+
                 break;
             case 'user':
                 $uname = $this->sockets[(int)$socket]['uname'];
@@ -304,8 +319,8 @@ class WebSocket {
             case 'system':
                 $response['type'] = 'system';
                 $response['from'] = 'Server';
-                $response['content']['system_data']= $msg_content;
-                $response['content']['userlist']=$msg_user_list;
+                $response['content']= $msg_content;
+//                $response['content']['userlist']=$msg_user_list;
                 echo $response;
 
                 break;

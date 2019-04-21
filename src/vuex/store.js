@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+// import { state } from 'fs';
 
 Vue.use(Vuex)
 const state = {
@@ -13,7 +14,8 @@ const state = {
   // 用于切换页面状态
   pageState: {
     'isLogin': false,
-    'isTalk': false
+    'isTalk': false,
+    'isEmpty': false
   },
   // 用于存储登录用户信息
   localUser: {
@@ -23,7 +25,7 @@ const state = {
   },
   // 用于存储已经登录在服务器上的用户信息
   user: [
-    {'name': '老王', 'ip': '127.0.0.1:8888', 'port': '1000'}
+    {'uname': '老王', 'ip': '127.0.0.1:8888', 'port': '1000'}
   ],
   // 聊天界面中的消息
   msglist: [
@@ -63,6 +65,12 @@ const mutations = {
   },
   resetUserList (state, userlist) {
     state.user = userlist
+  },
+  setEmptyTrue (state) {
+    state.pageState.isEmpty = true
+  },
+  setEmptyFalse (state) {
+    state.pageState.isEmpty = false
   }
 }
 

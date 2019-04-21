@@ -111,6 +111,17 @@ export default {
           
         }
       }.bind(this)
+      // 关闭连接操作
+      this.$store.state.sockets.ws.onclose = function (e) {
+        // 发送系统消息
+        var sysMsg = this.$store.state.localUser.name + '已下线';
+        var msg = {
+          'type': 'logout',
+          'content': sysMsg
+        }
+        this.$store.state.sockets.ws.send(msg);
+
+      }.bind(this)
      
     },
     
@@ -152,7 +163,7 @@ export default {
     //根据实际需求修改
     sysMsgReset (msg) {
       var sysMsg = {
-              'message': msg.content.system_data
+              'message': msg.content
             }
       this.$store.commit('sysMsgRefresh',sysMsg)
     },
@@ -164,9 +175,29 @@ export default {
       this.$store.commit('addMsg',msg_con)
     },
     userListReset (msg) {
-      var user_list = msg.content.userlist
-      // this.$store.commit('resetUserList',user_list)
-      console.log(user_list)
+      var user_list = msg.data
+      var localList = [];
+      var localName = this.$store.state.localUser.name
+      for(var i in user_list){
+        if(user_list[i].uname==null||user_list[i].uname==localName){
+          continue;
+        }
+        else{
+          localList.push(user_list[i]);
+        }
+        
+      }
+      this.$store.commit('resetUserList',localList)
+      // 设置用户列表为空
+      if(localList.length == 0){
+        this.$store.commit('setEmptyTrue');
+      }
+      else{
+        this.$store.commit('setEmptyFalse');
+      }
+      // console.log('1')
+      console.log(localList)
+      // console.log(user_list)
     },
     handshakeInfo () {
       var userinfo = {

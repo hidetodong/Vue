@@ -2,9 +2,14 @@
   <div id="users">
     <div class='local-user-inner'><h1>当前用户:{{localUser.name}} | 状态： {{localUser.status}}</h1></div>
     <hr class="divide-line">
-    <div class="users-inner"  v-for="x in users">
+    <div class="users-inner" v-if="isEmpty==true">
       <h1>
-        <div class="p-name">{{x.name}}</div><div class="p-button">发送消息</div>
+         没有其他用户上线！
+      </h1>
+    </div>
+    <div class="users-inner"  v-for="x in users" v-else>
+      <h1>
+        <div class="p-name">{{x.uname}}</div><div class="p-button" v-on:click="sendToUser">发送消息</div>
         <div class="p-button"> 传送文件</div>
       </h1>
     </div>
@@ -26,6 +31,14 @@ export default {
     },
     users () {
       return this.$store.state.user
+    },
+    isEmpty () {
+      return this.$store.state.pageState.isEmpty
+    }
+  },
+  methods: {
+    sendToUser () {
+      
     }
   }
 }
