@@ -3,15 +3,18 @@
     <div class="loginbar-inner">
       <div class="loginbar-text">
         <div class='login-img'>
-          <img src="../img/cloud.jpg" alt="">
+          <span><img src="../img/cloud.jpg" alt=""></span>
         </div>
         <div class='login-text'>
+          <p class="login-user-tag">用户名</p>
           <div class='login-input-user'>
-              <span>用户名 <input type="text" value='' id='username-text' placeholder="请输入用户名"></span>
+              <input type="text" value='' id='username-text' placeholder="请输入用户名">
           </div>
+          <p class='login-user-tag'>密码</p>
           <div class="login-input-pass">
-              <span>密  码 <input type="password" id='user-password' placeholder="请输入密码"></span>
+              <input type="password" id='user-password' placeholder="请输入密码">
           </div>
+
             <div class="login-button-bar">
               <div class="login-input-confirm" v-on:click="updateUserInfo()">
                 <span>登 录</span>
@@ -135,17 +138,23 @@ export default {
       
     },
     loginVerify () {
+      // 页面确认逻辑，
       if (document.getElementById('username-text').value == ''||document.getElementById('user-password').value=='')
       {
         alert('请正确输入用户名和密码！');
       }
     },
+    // 更新在线状态
     updateLocalState () {
+      
       this.$store.commit("updateLocalStatus","在线")
     },
+     // 确认登录 切换页面
     confirmLogin () {
+     
       this.$store.commit("confirmLogin")
     },
+    // 登录系统信息上传发送至服务器
     sysMsgLogin () {
       var userinfo = {
         'name':document.getElementById('username-text').value,
@@ -160,13 +169,14 @@ export default {
       // this.$store.commit("sysMsgRefresh",sysMsg);
       this.$store.state.sockets.ws.send(sys_send) 
     },
-    //根据实际需求修改
+    // 根据实际需求修改 重置系统信息
     sysMsgReset (msg) {
       var sysMsg = {
               'message': msg.content
             }
       this.$store.commit('sysMsgRefresh',sysMsg)
     },
+    // 添加公共聊天信息
     diaboxAdd (msg) {
       var msg_con = {
               'name': msg.from,
@@ -174,6 +184,7 @@ export default {
             }
       this.$store.commit('addMsg',msg_con)
     },
+    // 刷新在线用户列表
     userListReset (msg) {
       var user_list = msg.data
       var localList = [];
@@ -213,7 +224,7 @@ export default {
 
 <style scoped>
   #loginbar{
-    height: 100%;
+    height: 1000px;
   }
   .loginbar-inner{
       margin:0.5% 0% 10% 0%;
@@ -232,16 +243,33 @@ export default {
     box-shadow:0 0 10px #000;
   }
   .login-img{
-    margin-top: 10%;
+    margin-top: 8%;
     text-align: center;
   }
   .login-img img{
-    
     width: 30%;
   }
   .login-text{
     margin-top: 10%;
     height: 70%;
+  }
+   /* 用户名部分 */
+   .login-user-tag{
+     font-size: 16px;
+     font-family: 'Microsoft YaHei';
+     /* border: 1px solid; */
+     margin-left: 20%;
+     margin-right: 20%;
+     padding-top: 10px;
+     padding-left:5px;
+     padding-bottom: 5px;
+   }
+  #username-text{
+    font-family: 'Microsoft YaHei';
+    margin-top: 1%;
+    margin-left: 5%;
+    margin-right: 1%;
+    height: 90%;
   }
   .login-input-user{
     border:1px solid;
@@ -249,22 +277,21 @@ export default {
     height: 15%;
     width: 60%;
     margin-left: 20%;
-    margin-top: 7%;
+    /* margin-top: 7%; */
     font-size: 16px;
     /* box-shadow:0 0 10px #000; */
   }
+  
   .login-input-user span{
     display: inline-block;
     margin-left: 4%;
     height: 100%;
     line-height: 100%;
   }
-  .login-input-user span input{
-    margin-right: 0%;
-    width:70%;
+  .login-input-user input{
     border: none;
     text-indent: 10px;
-    border-left: 1px solid;
+    /* border-left: 1px solid; */
     height: 100%;
   }
   .login-input-pass{
@@ -273,11 +300,19 @@ export default {
     height: 15%;
     width: 60%;
     margin-left: 20%;
-    margin-top: 7%;
+    /* margin-top: 7%; */
     font-size: 16px;
     /* box-shadow:0 0 10px #000; */
   }
   /* 密码部分 */
+  #user-password{
+    font-family: 'Microsoft YaHei';
+    margin-top: 1%;
+    margin-left: 5%;
+    margin-right: 1%;
+    height: 90%;
+  
+  }
   .login-input-pass span{
     display: inline-block;
     width: 100%;
@@ -285,9 +320,8 @@ export default {
     height: 100%;
     line-height: 100%;
   }
-  .login-input-pass span input{
+  .login-input-pass  input{
     border: none;
-    border-left: 1px solid;
     height: 100%;
     text-indent: 10px;
   }
@@ -295,6 +329,7 @@ export default {
 
   /* 登录按钮部分 */
   .login-input-confirm{
+    font-family: 'Microsoft YaHei';
     border:1px solid;
     border-radius: 10px;
     height: 8%;
@@ -307,6 +342,7 @@ export default {
     box-shadow:0 0 3px #000;
   }
   .login-input-confirm:hover{
+    
     border:1px solid;
     border-radius: 10px;
     height: 8%;
@@ -329,6 +365,7 @@ export default {
   }
   /* 取消按钮部分 */
   .login-input-register{
+    font-family: 'Microsoft YaHei';
     border:1px solid;
     border-radius: 10px;
     height: 8%;
@@ -353,7 +390,7 @@ export default {
     background-color:rgb(126, 181, 243);
   }
   .login-button-bar{
-    margin-top: 5%;
+    margin-top: 10px;
   }
   .login-input-register span{
     display: inline-block;

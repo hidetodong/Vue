@@ -109,17 +109,27 @@ class WebSocket {
                     }
                 }
                 array_unshift($recv_msg, 'receive_msg');
-                $msg = self::dealMsg($socket, $recv_msg);
-
-//                $this->broadcast($this->sockets);
-                // 广播接收的消息
-                $this->broadcast($msg);
-
+                // 如果是点对点信息 就私发给指定用户 如果是其他类型 就进行广播
+                if($recv_msg['type']=='usermsg'){
+                    // 私发
+                    self::sendToUser($recv_msg);
+                }
+                else{
+                    // 广播消息
+                    $msg = self::dealMsg($socket, $recv_msg);
+                    // 广播接收的消息
+                    $this->broadcast($msg);
+                }
                 // 更新用户列表
                 $this->refreshUserlist($this->sockets);
 
             }
         }
+    }
+    public function sendToUser($recv_msg){
+        $sendmsg['ip']=$recv_msg['ip'];
+        $sendmsg['port']=$recv_msg['port'];
+        $sendmsg['content']=$recv_msg['data'];
     }
 
     /**
@@ -304,9 +314,6 @@ class WebSocket {
 //              $response['type'] = 'logout';
 //              $response['content'] = $msg_content;
 //              $response['user_list'] = $user_list;
-//                foreach()
-
-
                 break;
             case 'user':
                 $uname = $this->sockets[(int)$socket]['uname'];

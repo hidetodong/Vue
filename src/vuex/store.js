@@ -31,6 +31,15 @@ const state = {
   msglist: [
     {'name': '未知用户', 'content': '你们都要发财'}
   ],
+  userMsgList:[
+    {
+      'from': '小周',
+      'data': [
+        {'name': '小周', 'content':'niubi'},
+        {'name': '自己', 'content': '太狠了'},       
+      ]
+    }
+  ],
   // 系统消息暂存
   systemMsg: {
     'message': '123123'

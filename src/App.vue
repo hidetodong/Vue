@@ -3,7 +3,8 @@
     <!-- <input type="button" value="切换" v-on:click="turned()"> -->
     <titlebar></titlebar>
     <div class='bodycontainer' v-if="isLogin == true">
-     <bodybar></bodybar>
+      
+      <bodybar></bodybar>
     </div>
     <div class='bodycontainer' v-else>
       <loginbar></loginbar>
@@ -141,7 +142,7 @@ export default {
   #app{
     border:1px solid #111;
     width: 100%;
-    height: 1000px;
+    height: 1800px;
     /* background-color: rgb(205, 207, 219); */
   }
   .bodycontainer{

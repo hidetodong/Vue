@@ -14,8 +14,9 @@ import LoginBar from './components/LoginBar'
 import MessageBody from './components/MessageBody'
 import TalkingBox from './components/TalkingBox'
 import Diabox from './components/Diabox'
+import PrivateTalk from './components/PrivateTalk'
 // import Global from './components/Global'
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 // 全局注册
 Vue.component('titlebar', TitleBar)
@@ -29,6 +30,7 @@ Vue.component('loginbar', LoginBar)
 Vue.component('msgbody', MessageBody)
 Vue.component('talksbox', TalkingBox)
 Vue.component('diabox', Diabox)
+Vue.component('privatetalk',PrivateTalk)
 /* eslint-disable no-new */
 // 导入WebSocket连接模块
 Vue.prototype.WebCon = WebCon

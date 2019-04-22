@@ -22,7 +22,7 @@ export default {
 
 <style scoped>
  #msgbox{
-   height: 7%;
+   height: 5%;
    width: 100%;
    /* border:1px solid rgb(240, 47, 66); */
  }

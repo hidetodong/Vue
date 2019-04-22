@@ -28,7 +28,6 @@ export default {
 </script>
 
 <style scoped>
-
     p{
         border-radius: 20px;
         border:1px solid;
@@ -39,6 +38,5 @@ export default {
         font-size: 16px;
 
     }
-
 </style>
 

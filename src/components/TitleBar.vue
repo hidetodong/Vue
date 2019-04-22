@@ -19,10 +19,10 @@ export default {
 
 <style scoped>
   #titlebar h1{
-    font-size: 50px;
-    border-top:5px solid rgb(56, 66, 69);
-    border-bottom:6px solid rgb(56, 66, 69);
-    text-align: center;
+    font-size: 3vw;
+    border-top:6px solid rgb(56, 66, 69);
+    border-bottom:8px solid rgb(56, 66, 69);
+    /* text-align: center; */
     vertical-align:middle;
     height: 100%;
     line-height: 100%;
@@ -30,7 +30,7 @@ export default {
   }
   #titlebar{
     width: 100%;
-    height: 11%;
+    height: 100px;
   }
   #titlebar img{
     width: 6%;
@@ -39,13 +39,17 @@ export default {
     text-align: center;
   }
   .titlebar-span{
-    padding-top: 2%;
+    margin-left: 25%;
+    margin-right: 25%;
+    width: 50%;
+    margin-top: 25px;
+    /* border: 1px solid; */
+    /* margin-top: 1%;
+    margin-bottom: 1%; */
     font-family: fantasy;
     display: inline-block;
-    vertical-align:middle;
+    /* vertical-align:middle; */
     text-align: center;
   }
-  #titlebar span{
-
-  }
+  
 </style>
