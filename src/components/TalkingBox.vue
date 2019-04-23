@@ -54,7 +54,7 @@ export default {
 <style scoped>
   #talksbox{
       width: 100%;
-      height: 100%;
+      height: 60%;
       /* background-color: blue; */
       border: 1px solid;
       /* background-color: azure; */

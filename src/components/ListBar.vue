@@ -23,10 +23,11 @@ export default {
     border-right: 2px solid rgb(79, 78, 82);
     border-bottom: 2px solid rgb(79, 78, 82);
     width: 18%;
-    margin-top: 0.3%;
+    margin-top: 1%;
     display: inline-block;
     /* text-align: center; */
-    height: 100%;
+    height: 70%;
+    float:left;
   }
   #listbar span{
     text-align: center;

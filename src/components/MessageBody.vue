@@ -6,7 +6,13 @@
       <input type="button" v-on:click="change()" class='msgcon-button'>
     </div>
     <div class="msg-container" v-else>
-      <talksbox></talksbox>
+      <div class="msg-tab" v-if="isPrivate">
+        <privatetalk></privatetalk>
+      </div>
+      <div class="msg-tab" v-else>
+        <talksbox></talksbox>
+      </div>
+      
     </div>
    
   </div>
@@ -24,27 +30,34 @@ export default {
     change(){
       this.isTalk = !this.isTalk;
     }
+  },
+  computed:{
+    isPrivate () {
+      return this.$store.state.pageState.isPrivate;
+    }
   }
 }
 </script>
 
 <style scoped>
   #msgbody{
-    float: right;
-    width: 81%;
-    height: 93%;
+    float:left;
+    height: 73%;
+    width: 80%;
     display: inline-block;
     /* border: 1px solid rgb(10, 161, 146); */
-    margin-top: 3px;
-    margin-left: 3px;
+    margin-top: 8px;
     padding-left: 2px;
     padding-top: 2px;
     padding-right: 4px;
+    margin-left: 1%;
+    /* margin-right: 1%; */
   }
   .msg-container{
-    height: 100%;
+    height: 90%;
     border: 1px solid;
-    margin-top: -0.5%;
+    margin-top: 0.5%;
+    
   }
   .msgcon-button{
     width: 50px;

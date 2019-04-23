@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import { state } from 'fs';
-
 Vue.use(Vuex)
+
 const state = {
   // Websocket通用信息维护
   webInfo: {
@@ -11,12 +10,15 @@ const state = {
   sockets: {
     ws: []
   },
+
   // 用于切换页面状态
   pageState: {
     'isLogin': false,
     'isTalk': false,
-    'isEmpty': false
+    'isEmpty': false,
+    'isPrivate': true
   },
+
   // 用于存储登录用户信息
   localUser: {
     'name': '',
@@ -25,24 +27,26 @@ const state = {
   },
   // 用于存储已经登录在服务器上的用户信息
   user: [
-    {'uname': '老王', 'ip': '127.0.0.1:8888', 'port': '1000'}
+    {'uname': 'user', 'ip': '127.0.0.1:8888', 'port': '1000'}
   ],
   // 聊天界面中的消息
   msglist: [
-    {'name': '未知用户', 'content': '你们都要发财'}
+    {'name': '', 'content': ''}
   ],
   userMsgList:[
     {
-      'from': '小周',
+      'from': '',
       'data': [
-        {'name': '小周', 'content':'niubi'},
-        {'name': '自己', 'content': '太狠了'},       
+               
       ]
     }
   ],
   // 系统消息暂存
   systemMsg: {
     'message': '123123'
+  },
+  currentUser: {
+    'name': ''
   }
 }
 // 存放修改变量的方法
@@ -80,6 +84,12 @@ const mutations = {
   },
   setEmptyFalse (state) {
     state.pageState.isEmpty = false
+  },
+  addUserMsg(state, msg){
+    // state.userMsgList
+  },
+  setCurrentUser (state, user) {
+    state.currentUser.name=user
   }
 }
 

@@ -2,7 +2,7 @@
   <div id="privatetalk">
     <div class="private-wrapper">
         <p class="talk-header">
-            <span class="talk-name">{{user_msg.name}}</span>
+            <span class="talk-name">{{currentUser.name}}</span>
         </p>
         <div class="talk-body">
             <div class="talk-content-wrapper" v-for="x in user_msg.data">
@@ -11,11 +11,11 @@
         </div>
         <div class="talk-text">
             <textarea name="" id="talk-textarea"></textarea>
-             {{user_msg}}
+            
         </div>
         <div class="talk-button">
-            <div class="talk-send"><span id='talk-send-button'>发送</span></div>
-            <div class="talk-send"><span id='talk-reset-button'>待用</span></div>
+            <div class="talk-send"><span id='talk-send-button' v-on:click="sendToUser">发 送</span></div>
+            <div class="talk-send"><span id='talk-return-button' v-on:click="returnToPublic">返 回</span></div>
             
         </div>
     </div>
@@ -36,8 +36,10 @@ export default {
   computed: {
         user_msg () {
             // 预定义  待修改到store
-            var oppo_user_name='小周';
+            var oppo_user_name='吴帅均';
+            // var oppo_user_name=this.currentUser.name;
             var allMsg = this.$store.state.userMsgList;
+            // 还需要做一重检测  当信息列表中还不存在当前的用户时 要先添加一层JSON
             var currentMsg = this.userCheck(allMsg,oppo_user_name);
             // console.log(currentMsg);
             // return this.$store.state.msglist
@@ -45,14 +47,16 @@ export default {
                 'name': currentMsg[0].from,
                 'data': currentMsg[0].data
             }
-            console.log(finalList.name)
             return finalList;
+        },
+        currentUser () {
+            return this.$store.state.currentUser
         }
+        
     },
   methods: {
       userCheck (user_msg,oppo_user_name) {
           var list=[]
-          
           for(var i in user_msg){
               if(user_msg[i].from == oppo_user_name){
                   list.push(user_msg[i]);
@@ -65,19 +69,46 @@ export default {
         //   list=JSON.stringify(list);
           console.log(list);
           return list;
+      },
+      returnToPublic () {
+        
+      },
+      sendToUser () {
+          var currentUser = this.$store.state.currentUser.name;
+          var user_msg = this.$store.state.userMsgList;
+          var msg = document.getElementById('talk-textarea').value;
+          console.log(msg);
+          var localName = this.$store.state.localUser.name;
+          var sendInfo = {
+              'name': localName,
+              'content': msg
+          }
+          for(var i in user_msg){
+              if(user_msg[i].from==currentUser){
+                  user_msg[i].data.push(sendInfo);
+                  console.log(user_msg)
+              }
+              else{
+                  continue;
+              }
+          }
       }
   }
 }
 </script>
 
 <style scoped>
+  #privatetalk{
+      height: 900px;
+      /* border: 1px solid; */
+  }
   .private-wrapper{
-      margin-left: 25%;
-      margin-right: 25%;
+      margin-left: 15%;
+      margin-right: 15%;
       margin-top: 2%;
       border: 1px solid;
       border-radius: 10px;
-      height: 400px;
+      height: 80%;
       
   }
   .private-wrapper hr{
@@ -131,7 +162,7 @@ export default {
       padding: 3% 3%;
   }
   .talk-send{
-      
+      -webkit-user-select: none;
       display: inline-block;
       margin-left: 5%;
       margin-top: 0.5%;
