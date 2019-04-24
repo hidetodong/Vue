@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
-
+// 存放需要使用的变量
 const state = {
   // Websocket通用信息维护
   webInfo: {
@@ -10,7 +10,6 @@ const state = {
   sockets: {
     ws: []
   },
-
   // 用于切换页面状态
   pageState: {
     'isLogin': false,
@@ -18,7 +17,6 @@ const state = {
     'isEmpty': false,
     'isPrivate': true
   },
-
   // 用于存储登录用户信息
   localUser: {
     'name': '',
@@ -33,11 +31,10 @@ const state = {
   msglist: [
     {'name': '', 'content': ''}
   ],
-  userMsgList:[
+  userMsgList: [
     {
       'from': '',
       'data': [
-               
       ]
     }
   ],
