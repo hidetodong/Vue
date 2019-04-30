@@ -3,12 +3,10 @@
     <!-- <input type="button" value="切换" v-on:click="turned()"> -->
     <titlebar></titlebar>
     <div class='bodycontainer' v-if="isLogin == true">
-      
       <bodybar></bodybar>
     </div>
     <div class='bodycontainer' v-else>
       <loginbar></loginbar>
-      
     </div>
   </div>
 </template>
@@ -23,12 +21,6 @@ export default {
     return {
       
     }
-  },
-  created: function () {
-    // this.initWs()
-  },
-  beforeUpdate: function () {
-    
   },
   computed: {
             isLogin () {

@@ -68,6 +68,7 @@ export default {
       //验证用户名合理性
       this.loginVerify();
       //vue更新数据
+      
       this.$store.commit("updateUserInfo",userinfo);
       //发送Websocket包给PHP后台
       var wsurl = this.$store.state.webInfo.wsurl
@@ -125,7 +126,7 @@ export default {
         this.$store.state.sockets.ws.send(msg);
 
       }.bind(this)
-     
+      
     },
     
     webConnectOnOpen (e) {      

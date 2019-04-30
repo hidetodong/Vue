@@ -5,7 +5,9 @@ set_time_limit(0);// 设置超时时间为无限,防止超时
 //date_default_timezone_set('Asia/shanghai');
 
 class WebSocket {
+    // 设置日志路径
     const LOG_PATH = '';
+    // 设置最大连接数
     const LISTEN_SOCKET_NUM = 9;
     /**
      * @var array $sockets
@@ -27,7 +29,10 @@ class WebSocket {
             socket_set_option($this->master, SOL_SOCKET, SO_REUSEADDR, 1);
             // 将IP和端口绑定在服务器socket上;
             socket_bind($this->master, $host, $port);
-            // listen函数使用主动连接套接口变为被连接套接口，使得一个进程可以接受其它进程的请求，从而成为一个服务器进程。在TCP服务器编程中listen函数把进程变为一个服务器，并指定相应的套接字变为被动连接,其中的能存储的请求不明的socket数目。
+            // listen函数使用主动连接套接口变为被连接套接口，
+            // 使得一个进程可以接受其它进程的请求，从而成为一个服务器进程。
+            // 在TCP服务器编程中listen函数把进程变为一个服务器，
+            // 并指定相应的套接字变为被动连接,其中的能存储的请求不明的socket数目。
             socket_listen($this->master, self::LISTEN_SOCKET_NUM);
         } catch (\Exception $e) {
             $err_code = socket_last_error();
@@ -48,10 +53,6 @@ class WebSocket {
             try {
                 $this->doServer();
                 print_r($this->sockets) ;
-//                foreach ($this->sockets as $socket) {
-//                    print_r($this->sockets[(int)$socket]['handshake']);
-//                }
-
             }
             catch (\Exception $e){
                 $this->error([
@@ -80,7 +81,10 @@ class WebSocket {
             if ($socket == $this->master) {
                 $client = socket_accept($this->master);
                 //echo $client;
-                // 创建,绑定,监听后accept函数将会接受socket要来的连接,一旦有一个连接成功,将会返回一个新的socket资源用以交互,如果是一个多个连接的队列,只会处理第一个,如果没有连接的话,进程将会被阻塞,直到连接上.如果用set_socket_blocking或socket_set_noblock()设置了阻塞,会返回false;返回资源后,将会持续等待连接。
+                // 创建,绑定,监听后accept函数将会接受socket要来的连接,一旦有一个连接成功,
+                // 将会返回一个新的socket资源用以交互,如果是一个多个连接的队列,只会处理第一个,
+                // 如果没有连接的话,进程将会被阻塞,直到连接上.如果用set_socket_blocking或socket_set_noblock()
+                // 设置了阻塞,会返回false;返回资源后,将会持续等待连接。
                 if (false === $client) {
                     $this->error([
                         'err_accept',
@@ -97,7 +101,7 @@ class WebSocket {
                 // 函数前加@ 表示错误信息控制 不输出
                 $bytes = @socket_recv($socket, $buffer, 4096, 0);
                 // 长度小于9 断开连接
-                if ($bytes < 9) {
+                if ($bytes < 9) { 
                     $recv_msg = $this->disconnect($socket);
                 } else {
                     if (!$this->sockets[(int)$socket]['handshake']) {
@@ -111,18 +115,17 @@ class WebSocket {
                 array_unshift($recv_msg, 'receive_msg');
                 // 如果是点对点信息 就私发给指定用户 如果是其他类型 就进行广播
                 if($recv_msg['type']=='usermsg'){
-                    // 私发
+                    // 私发消息
                     self::sendToUser($recv_msg);
                 }
                 else{
-                    // 广播消息
+                    // 组装需要发送的消息
                     $msg = self::dealMsg($socket, $recv_msg);
                     // 广播接收的消息
                     $this->broadcast($msg);
                 }
                 // 更新用户列表
                 $this->refreshUserlist($this->sockets);
-
             }
         }
     }
@@ -310,10 +313,6 @@ class WebSocket {
                 // 去除已注销的用户
                 $this->disconnect($socket);
                 echo '注销完毕';
-//              $user_list = array_column($this->sockets, 'uname');
-//              $response['type'] = 'logout';
-//              $response['content'] = $msg_content;
-//              $response['user_list'] = $user_list;
                 break;
             case 'user':
                 $uname = $this->sockets[(int)$socket]['uname'];

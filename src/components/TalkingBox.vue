@@ -61,7 +61,9 @@ export default {
       
   }
   .talk-inner{
-    height: 60%;
+    width: 98%;
+    /* display: inline-block; */
+    height: 10%;
     margin-left: 1%;
     margin-right: 1%;
     margin-top: 1%;

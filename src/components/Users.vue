@@ -10,7 +10,7 @@
     <div class="users-inner"  v-for="x in users" v-else>
       <h1>
         <div class="p-name">{{x.uname}}</div><div class="p-button" v-on:click="sendToUser(x)">发送消息</div>
-        <div class="p-button">传送文件</div>
+        <!-- <div class="p-button">传送文件</div> -->
       </h1>
     </div>
   </div>
@@ -39,8 +39,8 @@ export default {
   methods: {
     sendToUser (x) {
       var currentUser = x.uname;
-      // console.log(currentUser); 
       this.$store.commit('setCurrentUser',currentUser);
+      this.$store.commit('setIsPrivate');
     }
   }
 }
@@ -85,7 +85,7 @@ export default {
     padding-top: 5%;
     display: inline-block;
     /* vertical-align: bottom; */
-    width: 25%;
+    width: 50%;
     border: 1px solid;
     border-radius: 10px;
     height: 50%;

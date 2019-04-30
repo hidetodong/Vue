@@ -71,7 +71,7 @@ export default {
           return list;
       },
       returnToPublic () {
-        
+        this.$store.commit('setNotPrivate');
       },
       sendToUser () {
           var currentUser = this.$store.state.currentUser.name;
